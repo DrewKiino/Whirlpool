@@ -1,0 +1,89 @@
+#DrewsList Podfile
+
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+
+use_frameworks!
+
+#####################################
+
+target 'Whirlpool' do
+
+# map routing libs
+# pod 'OpenInGoogleMaps', '0.1.0'
+
+# socket libs
+pod 'Socket.IO-Client-Swift', '5.3.3' # Or latest version
+
+# http libs
+pod 'Alamofire', '3.2.1'
+
+# json libs
+# pod 'SwiftyJSON', '2.3.2'
+# pod 'ObjectMapper', '1.1.5'
+
+# service libs
+# pod 'SwiftyTimer', '1.3.1'
+# pod 'SwiftDate',  '~> 2.0'
+
+# feature libs
+# pod 'JSQMessagesViewController', '7.2.0'
+
+# UI libs
+pod 'Neon', '0.0.3'
+# pod 'TextFieldEffects', '1.1.1'
+# pod 'SwiftyButton', '0.4.0'
+# pod 'Gifu', '1.0.1'
+# pod 'NVActivityIndicatorView', '2.3'
+# pod 'LTMorphingLabel', '0.1.1'
+# pod 'CWStatusBarNotification', '2.3.4'
+# pod 'KMPlaceholderTextView', '1.1.1'
+# pod 'Cosmos', '1.2.1'
+# pod 'MIBadgeButton-Swift'
+
+# pubsub libs
+pod 'Signals', '2.3.0'
+
+# event handling
+# pod 'PromiseKit', '3.0.3'
+pod 'AsyncSwift', '1.7.2'
+
+# image libs
+# pod 'HanekeSwift'
+pod 'SDWebImage', '3.7.5'
+pod 'Tide'
+
+# data storage libs
+# pod 'RealmSwift', '0.98.3'
+
+# onboarding libs
+# pod 'Onboard', '2.1.7'
+
+# permissions
+# pod 'PermissionScope', '1.0.2'
+
+# facebook
+# pod 'FBSDKCoreKit', '4.10.0'
+# pod 'FBSDKLoginKit', '4.10.0'
+
+# google
+# pod 'Google/Analytics'
+
+# payments 
+# pod 'Stripe'
+# pod 'CreditCardValidator'
+
+# logging
+pod 'Atlantis'
+
+end
+
+
+#####################################
+# unit testing
+
+target 'WhirlpoolTests' do
+
+end
+
+#####################################

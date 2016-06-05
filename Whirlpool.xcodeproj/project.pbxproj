@@ -1,0 +1,657 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		05A8679CA75F324F278E4DC8 /* Pods_Whirlpool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C4D329AFAD639BF458E9BF /* Pods_Whirlpool.framework */; };
+		1624B4CDFC5AE8A4D443AA6F /* Pods_WhirlpoolTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5F71280F4700620E5E0115 /* Pods_WhirlpoolTests.framework */; };
+		EE21EC671D03B1FF00DE6D00 /* Whirlpool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE21EC661D03B1FF00DE6D00 /* Whirlpool.swift */; };
+		EE5219C51D03B14E00347396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5219C41D03B14E00347396 /* AppDelegate.swift */; };
+		EE5219C71D03B14E00347396 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5219C61D03B14E00347396 /* ViewController.swift */; };
+		EE5219CA1D03B14E00347396 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE5219C81D03B14E00347396 /* Main.storyboard */; };
+		EE5219CC1D03B14E00347396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE5219CB1D03B14E00347396 /* Assets.xcassets */; };
+		EE5219CF1D03B14E00347396 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE5219CD1D03B14E00347396 /* LaunchScreen.storyboard */; };
+		EE5219DA1D03B14E00347396 /* WhirlpoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5219D91D03B14E00347396 /* WhirlpoolTests.swift */; };
+		EE5219E51D03B14E00347396 /* WhirlpoolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5219E41D03B14E00347396 /* WhirlpoolUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EE5219D61D03B14E00347396 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE5219B91D03B14E00347396 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE5219C01D03B14E00347396;
+			remoteInfo = Whirlpool;
+		};
+		EE5219E11D03B14E00347396 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE5219B91D03B14E00347396 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE5219C01D03B14E00347396;
+			remoteInfo = Whirlpool;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1A5F71280F4700620E5E0115 /* Pods_WhirlpoolTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhirlpoolTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3142A1CCB5A53DD3ED5CA87A /* Pods-Whirlpool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Whirlpool.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Whirlpool/Pods-Whirlpool.debug.xcconfig"; sourceTree = "<group>"; };
+		670808EA5A34225C92DBBBC1 /* Pods-Whirlpool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Whirlpool.release.xcconfig"; path = "Pods/Target Support Files/Pods-Whirlpool/Pods-Whirlpool.release.xcconfig"; sourceTree = "<group>"; };
+		6E1EC65D6905BEC08D863073 /* Pods-WhirlpoolTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhirlpoolTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhirlpoolTests/Pods-WhirlpoolTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7343E7349E88145A54900CDD /* Pods-WhirlpoolTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhirlpoolTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhirlpoolTests/Pods-WhirlpoolTests.release.xcconfig"; sourceTree = "<group>"; };
+		D8C4D329AFAD639BF458E9BF /* Pods_Whirlpool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Whirlpool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE21EC661D03B1FF00DE6D00 /* Whirlpool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Whirlpool.swift; sourceTree = "<group>"; };
+		EE5219C11D03B14E00347396 /* Whirlpool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whirlpool.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE5219C41D03B14E00347396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EE5219C61D03B14E00347396 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EE5219C91D03B14E00347396 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EE5219CB1D03B14E00347396 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EE5219CE1D03B14E00347396 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EE5219D01D03B14E00347396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE5219D51D03B14E00347396 /* WhirlpoolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhirlpoolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE5219D91D03B14E00347396 /* WhirlpoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhirlpoolTests.swift; sourceTree = "<group>"; };
+		EE5219DB1D03B14E00347396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE5219E01D03B14E00347396 /* WhirlpoolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhirlpoolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE5219E41D03B14E00347396 /* WhirlpoolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhirlpoolUITests.swift; sourceTree = "<group>"; };
+		EE5219E61D03B14E00347396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EE5219BE1D03B14E00347396 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05A8679CA75F324F278E4DC8 /* Pods_Whirlpool.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE5219D21D03B14E00347396 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1624B4CDFC5AE8A4D443AA6F /* Pods_WhirlpoolTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE5219DD1D03B14E00347396 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C0934FE503EF1F7E71DE2DC4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D8C4D329AFAD639BF458E9BF /* Pods_Whirlpool.framework */,
+				1A5F71280F4700620E5E0115 /* Pods_WhirlpoolTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EE21EC641D03B1E400DE6D00 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				EE21EC661D03B1FF00DE6D00 /* Whirlpool.swift */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		EE5219B81D03B14E00347396 = {
+			isa = PBXGroup;
+			children = (
+				EE5219C31D03B14E00347396 /* Whirlpool */,
+				EE5219D81D03B14E00347396 /* WhirlpoolTests */,
+				EE5219E31D03B14E00347396 /* WhirlpoolUITests */,
+				EE5219C21D03B14E00347396 /* Products */,
+				FF214D8514AAC1ECBB6DACCA /* Pods */,
+				C0934FE503EF1F7E71DE2DC4 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		EE5219C21D03B14E00347396 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE5219C11D03B14E00347396 /* Whirlpool.app */,
+				EE5219D51D03B14E00347396 /* WhirlpoolTests.xctest */,
+				EE5219E01D03B14E00347396 /* WhirlpoolUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EE5219C31D03B14E00347396 /* Whirlpool */ = {
+			isa = PBXGroup;
+			children = (
+				EE21EC641D03B1E400DE6D00 /* Assets */,
+				EE5219C41D03B14E00347396 /* AppDelegate.swift */,
+				EE5219C61D03B14E00347396 /* ViewController.swift */,
+				EE5219C81D03B14E00347396 /* Main.storyboard */,
+				EE5219CB1D03B14E00347396 /* Assets.xcassets */,
+				EE5219CD1D03B14E00347396 /* LaunchScreen.storyboard */,
+				EE5219D01D03B14E00347396 /* Info.plist */,
+			);
+			path = Whirlpool;
+			sourceTree = "<group>";
+		};
+		EE5219D81D03B14E00347396 /* WhirlpoolTests */ = {
+			isa = PBXGroup;
+			children = (
+				EE5219D91D03B14E00347396 /* WhirlpoolTests.swift */,
+				EE5219DB1D03B14E00347396 /* Info.plist */,
+			);
+			path = WhirlpoolTests;
+			sourceTree = "<group>";
+		};
+		EE5219E31D03B14E00347396 /* WhirlpoolUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EE5219E41D03B14E00347396 /* WhirlpoolUITests.swift */,
+				EE5219E61D03B14E00347396 /* Info.plist */,
+			);
+			path = WhirlpoolUITests;
+			sourceTree = "<group>";
+		};
+		FF214D8514AAC1ECBB6DACCA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3142A1CCB5A53DD3ED5CA87A /* Pods-Whirlpool.debug.xcconfig */,
+				670808EA5A34225C92DBBBC1 /* Pods-Whirlpool.release.xcconfig */,
+				6E1EC65D6905BEC08D863073 /* Pods-WhirlpoolTests.debug.xcconfig */,
+				7343E7349E88145A54900CDD /* Pods-WhirlpoolTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE5219C01D03B14E00347396 /* Whirlpool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE5219E91D03B14E00347396 /* Build configuration list for PBXNativeTarget "Whirlpool" */;
+			buildPhases = (
+				B64E3F3C6AB6623A04AEF5EC /* [CP] Check Pods Manifest.lock */,
+				EE5219BD1D03B14E00347396 /* Sources */,
+				EE5219BE1D03B14E00347396 /* Frameworks */,
+				EE5219BF1D03B14E00347396 /* Resources */,
+				FB85FECF6CA51AF253F512F1 /* [CP] Embed Pods Frameworks */,
+				6FC406EC6A817938D801466A /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Whirlpool;
+			productName = Whirlpool;
+			productReference = EE5219C11D03B14E00347396 /* Whirlpool.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EE5219D41D03B14E00347396 /* WhirlpoolTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE5219EC1D03B14E00347396 /* Build configuration list for PBXNativeTarget "WhirlpoolTests" */;
+			buildPhases = (
+				0007F9675293A6ADB99741E0 /* [CP] Check Pods Manifest.lock */,
+				EE5219D11D03B14E00347396 /* Sources */,
+				EE5219D21D03B14E00347396 /* Frameworks */,
+				EE5219D31D03B14E00347396 /* Resources */,
+				8F135B6C9E8E420BE7344E59 /* [CP] Embed Pods Frameworks */,
+				C3ACB5F4EFCA3FB6914F3F3C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE5219D71D03B14E00347396 /* PBXTargetDependency */,
+			);
+			name = WhirlpoolTests;
+			productName = WhirlpoolTests;
+			productReference = EE5219D51D03B14E00347396 /* WhirlpoolTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EE5219DF1D03B14E00347396 /* WhirlpoolUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE5219EF1D03B14E00347396 /* Build configuration list for PBXNativeTarget "WhirlpoolUITests" */;
+			buildPhases = (
+				EE5219DC1D03B14E00347396 /* Sources */,
+				EE5219DD1D03B14E00347396 /* Frameworks */,
+				EE5219DE1D03B14E00347396 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE5219E21D03B14E00347396 /* PBXTargetDependency */,
+			);
+			name = WhirlpoolUITests;
+			productName = WhirlpoolUITests;
+			productReference = EE5219E01D03B14E00347396 /* WhirlpoolUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE5219B91D03B14E00347396 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Andrew Aquino";
+				TargetAttributes = {
+					EE5219C01D03B14E00347396 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					EE5219D41D03B14E00347396 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = EE5219C01D03B14E00347396;
+					};
+					EE5219DF1D03B14E00347396 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = EE5219C01D03B14E00347396;
+					};
+				};
+			};
+			buildConfigurationList = EE5219BC1D03B14E00347396 /* Build configuration list for PBXProject "Whirlpool" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EE5219B81D03B14E00347396;
+			productRefGroup = EE5219C21D03B14E00347396 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE5219C01D03B14E00347396 /* Whirlpool */,
+				EE5219D41D03B14E00347396 /* WhirlpoolTests */,
+				EE5219DF1D03B14E00347396 /* WhirlpoolUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EE5219BF1D03B14E00347396 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE5219CF1D03B14E00347396 /* LaunchScreen.storyboard in Resources */,
+				EE5219CC1D03B14E00347396 /* Assets.xcassets in Resources */,
+				EE5219CA1D03B14E00347396 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE5219D31D03B14E00347396 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE5219DE1D03B14E00347396 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0007F9675293A6ADB99741E0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6FC406EC6A817938D801466A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Whirlpool/Pods-Whirlpool-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F135B6C9E8E420BE7344E59 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WhirlpoolTests/Pods-WhirlpoolTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B64E3F3C6AB6623A04AEF5EC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C3ACB5F4EFCA3FB6914F3F3C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WhirlpoolTests/Pods-WhirlpoolTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB85FECF6CA51AF253F512F1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Whirlpool/Pods-Whirlpool-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE5219BD1D03B14E00347396 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE5219C71D03B14E00347396 /* ViewController.swift in Sources */,
+				EE21EC671D03B1FF00DE6D00 /* Whirlpool.swift in Sources */,
+				EE5219C51D03B14E00347396 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE5219D11D03B14E00347396 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE5219DA1D03B14E00347396 /* WhirlpoolTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE5219DC1D03B14E00347396 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE5219E51D03B14E00347396 /* WhirlpoolUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EE5219D71D03B14E00347396 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE5219C01D03B14E00347396 /* Whirlpool */;
+			targetProxy = EE5219D61D03B14E00347396 /* PBXContainerItemProxy */;
+		};
+		EE5219E21D03B14E00347396 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE5219C01D03B14E00347396 /* Whirlpool */;
+			targetProxy = EE5219E11D03B14E00347396 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EE5219C81D03B14E00347396 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE5219C91D03B14E00347396 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EE5219CD1D03B14E00347396 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE5219CE1D03B14E00347396 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EE5219E71D03B14E00347396 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EE5219E81D03B14E00347396 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EE5219EA1D03B14E00347396 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3142A1CCB5A53DD3ED5CA87A /* Pods-Whirlpool.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Whirlpool/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = TotemV.Whirlpool;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EE5219EB1D03B14E00347396 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 670808EA5A34225C92DBBBC1 /* Pods-Whirlpool.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Whirlpool/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = TotemV.Whirlpool;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		EE5219ED1D03B14E00347396 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E1EC65D6905BEC08D863073 /* Pods-WhirlpoolTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = WhirlpoolTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = TotemV.WhirlpoolTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Whirlpool.app/Whirlpool";
+			};
+			name = Debug;
+		};
+		EE5219EE1D03B14E00347396 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7343E7349E88145A54900CDD /* Pods-WhirlpoolTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = WhirlpoolTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = TotemV.WhirlpoolTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Whirlpool.app/Whirlpool";
+			};
+			name = Release;
+		};
+		EE5219F01D03B14E00347396 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = WhirlpoolUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = TotemV.WhirlpoolUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Whirlpool;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		EE5219F11D03B14E00347396 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = WhirlpoolUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = TotemV.WhirlpoolUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Whirlpool;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE5219BC1D03B14E00347396 /* Build configuration list for PBXProject "Whirlpool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE5219E71D03B14E00347396 /* Debug */,
+				EE5219E81D03B14E00347396 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE5219E91D03B14E00347396 /* Build configuration list for PBXNativeTarget "Whirlpool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE5219EA1D03B14E00347396 /* Debug */,
+				EE5219EB1D03B14E00347396 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE5219EC1D03B14E00347396 /* Build configuration list for PBXNativeTarget "WhirlpoolTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE5219ED1D03B14E00347396 /* Debug */,
+				EE5219EE1D03B14E00347396 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE5219EF1D03B14E00347396 /* Build configuration list for PBXNativeTarget "WhirlpoolUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE5219F01D03B14E00347396 /* Debug */,
+				EE5219F11D03B14E00347396 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EE5219B91D03B14E00347396 /* Project object */;
+}

@@ -1,0 +1,36 @@
+PODS:
+  - Alamofire (3.2.1)
+  - AsyncSwift (1.7.2)
+  - Atlantis (0.1.1)
+  - Neon (0.0.3)
+  - SDWebImage (3.7.5):
+    - SDWebImage/Core (= 3.7.5)
+  - SDWebImage/Core (3.7.5)
+  - Signals (2.3.0)
+  - Socket.IO-Client-Swift (5.3.3)
+  - Tide (0.1.5):
+    - AsyncSwift
+
+DEPENDENCIES:
+  - Alamofire (= 3.2.1)
+  - AsyncSwift (= 1.7.2)
+  - Atlantis
+  - Neon (= 0.0.3)
+  - SDWebImage (= 3.7.5)
+  - Signals (= 2.3.0)
+  - Socket.IO-Client-Swift (= 5.3.3)
+  - Tide
+
+SPEC CHECKSUMS:
+  Alamofire: f11d8624a05f5d39e0c99309b3e600a3ba64298a
+  AsyncSwift: 46a78bceb11f0e5bb52747f740d9692ec78d2d7c
+  Atlantis: 33d4c4c436b6af3b640c2c6b2317c72d1fb41f00
+  Neon: 589d3d217d326abe09726bf81add106cff685bf2
+  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
+  Signals: d47128787e1675858f956556397e482fd667bd96
+  Socket.IO-Client-Swift: debd5c155e4299e33854fbd26bfeaafcbc6df6c6
+  Tide: 0b38feb296b3fa90d3428b986398a0c8325032d1
+
+PODFILE CHECKSUM: 09a3c8d74c7f3820ba88f6dfa202143980c1f1ce
+
+COCOAPODS: 1.0.1
