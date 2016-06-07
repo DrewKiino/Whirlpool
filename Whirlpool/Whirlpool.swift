@@ -37,7 +37,7 @@ public struct Whirlpool {
         
         model.username = user?.username
         model.userImageUrl = user?.userImageUrl
-        model.room = room
+        model.room = room?.stringByReplacingOccurrencesOfString(" ", withString: "")
         
         setup()
     }
@@ -51,7 +51,7 @@ public struct Whirlpool {
       
       model.username = username
       model.userImageUrl = userImageUrl
-      model.room = room
+      model.room = room?.stringByReplacingOccurrencesOfString(" ", withString: "")
       
       setup()
     }
@@ -156,6 +156,7 @@ public struct Whirlpool {
     }
     
     public func scrollToMostRecent() {
+      if model.messages.isEmpty { return }
       tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: model.messages.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: true)
     }
     

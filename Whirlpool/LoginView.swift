@@ -20,7 +20,7 @@ public class LoginView: UIViewController, UITextFieldDelegate {
     
     view.addSubview(input)
     
-    input.anchorInCenter(width: 256, height: 24)
+    input.anchorToEdge(.Top, padding: 100, width: 256, height: 24)
     input.delegate = self
     input.font = UIFont.systemFontOfSize(12)
     input.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)
