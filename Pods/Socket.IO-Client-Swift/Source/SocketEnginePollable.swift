@@ -25,7 +25,7 @@
 import Foundation
 
 /// Protocol that is used to implement socket.io polling support
-public protocol SocketEnginePollable: SocketEngineSpec {
+public protocol SocketEnginePollable : SocketEngineSpec {
     var invalidated: Bool { get }
     /// Holds strings waiting to be sent over polling. 
     /// You shouldn't need to mess with this.
@@ -100,19 +100,19 @@ extension SocketEnginePollable {
     }
     
     func doRequest(req: NSURLRequest, withCallback callback: (NSData?, NSURLResponse?, NSError?) -> Void) {
-            if !polling || closed || invalidated {
-                DefaultSocketLogger.Logger.error("Tried to do polling request when not supposed to", type: "SocketEnginePolling")
-                return
-            }
-            
-            DefaultSocketLogger.Logger.log("Doing polling request", type: "SocketEnginePolling")
-            
-            session?.dataTaskWithRequest(req, completionHandler: callback).resume()
+        if !polling || closed || invalidated || fastUpgrade {
+            DefaultSocketLogger.Logger.error("Tried to do polling request when not supposed to", type: "SocketEnginePolling")
+            return
+        }
+        
+        DefaultSocketLogger.Logger.log("Doing polling request", type: "SocketEnginePolling")
+        
+        session?.dataTaskWithRequest(req, completionHandler: callback).resume()
     }
     
     func doLongPoll(req: NSURLRequest) {
         doRequest(req) {[weak self] data, res, err in
-            guard let this = self else { return }
+            guard let this = self where this.polling else { return }
             
             if err != nil || data == nil {
                 DefaultSocketLogger.Logger.error(err?.localizedDescription ?? "Error", type: "SocketEnginePolling")
@@ -123,7 +123,7 @@ extension SocketEnginePollable {
                 
                 return
             }
-            
+
             DefaultSocketLogger.Logger.log("Got polling response", type: "SocketEnginePolling")
             
             if let str = String(data: data!, encoding: NSUTF8StringEncoding) {
@@ -181,9 +181,7 @@ extension SocketEnginePollable {
     }
     
     func parsePollingMessage(str: String) {
-        guard str.characters.count != 1 else {
-            return
-        }
+        guard str.characters.count != 1 else { return }
         
         var reader = SocketStringReader(message: str)
         
@@ -206,21 +204,28 @@ extension SocketEnginePollable {
     /// Send polling message.
     /// Only call on emitQueue
     public func sendPollMessage(message: String, withType type: SocketEnginePacketType, withData datas: [NSData]) {
-            DefaultSocketLogger.Logger.log("Sending poll: %@ as type: %@", type: "SocketEnginePolling", args: message, type.rawValue)
-            let fixedMessage = doubleEncodeUTF8(message)
-            let strMsg = "\(type.rawValue)\(fixedMessage)"
-            
-            postWait.append(strMsg)
-            
-            for data in datas {
-                if case let .Right(bin) = createBinaryDataForSend(data) {
-                    postWait.append(bin)
-                }
+        DefaultSocketLogger.Logger.log("Sending poll: %@ as type: %@", type: "SocketEnginePolling", args: message, type.rawValue)
+        let fixedMessage: String
+        
+        if doubleEncodeUTF8 {
+            fixedMessage = doubleEncodeUTF8(message)
+        } else {
+            fixedMessage = message
+        }
+        
+        let strMsg = "\(type.rawValue)\(fixedMessage)"
+        
+        postWait.append(strMsg)
+        
+        for data in datas {
+            if case let .Right(bin) = createBinaryDataForSend(data) {
+                postWait.append(bin)
             }
-            
-            if !waitingForPost {
-                flushWaitingForPost()
-            }
+        }
+        
+        if !waitingForPost {
+            flushWaitingForPost()
+        }
     }
     
     public func stopPolling() {

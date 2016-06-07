@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "E263830E98B4AD5858756A10413387508DFB0EAE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "A5CD027C00653AD7CB77CB434926C210778854F0" : 0,
+    "E263830E98B4AD5858756A10413387508DFB0EAE" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7F0629EA-65D1-4216-92D8-EDC907C3F0F0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "A5CD027C00653AD7CB77CB434926C210778854F0" : "Storm\/",
+    "E263830E98B4AD5858756A10413387508DFB0EAE" : "Whirlpool\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Whirlpool",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Whirlpool.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/DrewKiino\/Storm.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A5CD027C00653AD7CB77CB434926C210778854F0"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/DrewKiino\/Whirlpool.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E263830E98B4AD5858756A10413387508DFB0EAE"
+    }
+  ]
+}

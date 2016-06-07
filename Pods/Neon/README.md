@@ -8,6 +8,28 @@ Neon is built around how user interfaces are naturally and intuitively designed.
 
 > ***Neon is currently in beta***, but more will be coming very soon, so stay tuned! 
 
+## Install via CocoaPods 
+
+You can use [Cocoapods](http://cocoapods.org/) to install `Neon` by adding it to your `Podfile`:
+
+```ruby
+platform :ios, '8.0'
+use_frameworks!
+pod 'Neon'
+```
+
+##Manual Installation
+
+1. Download and drop `/Source` in your project.  
+2. Congratulations!  
+
+
+To get the full benefits import `Neon` wherever you have a UIView operation:
+
+``` swift
+import UIKit
+import Neon
+```
 
 ## Example
 
@@ -190,6 +212,16 @@ Note that changing the text to something with more characters still produces the
 
 > It's important to note that the using `AutoHeight` with something like a `CALayer`, or passing it in to any of the grouping methods (see below) will have undesired consequences, as it almost doesn't *make sense* in this context. Use `AutoHeight` with anything that implements `sizeToFit()` and you should be OK. The vast majority of cases where you'll want to use this is with `UILabel` objects.
 
+## What if I don't want to align them perfectly?
+
+Sometimes you don't want your views to align with their sibling views *exactly* - you may want to align them relative to their siblings, but with a slight offset. You can do this by adding the optional `offset` parameter to any of the above align methods to produce something like the following:
+
+```swift
+view1.align(.ToTheRightMatchingTop, relativeTo: anchorViewA, padding: padding, width: size, height: size, offset: offset)
+view2.align(.UnderMatchingLeft, relativeTo: anchorViewA, padding: padding, width: size, height: size, offset: offset)
+```
+
+![Offset](Screenshots/align_offset.png)
 
 ## Grouping
 
@@ -238,7 +270,6 @@ anchorViewA.groupAndFill(group: .Horizontal, views: [view1, view2, view3], paddi
 anchorViewB.groupAndFill(group: .Vertical, views: [view4, view5, view6], padding: padding)
 ```
 ![Group and fill](Screenshots/group_and_fill.png)
-
 
 ## License
 

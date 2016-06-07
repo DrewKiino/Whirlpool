@@ -24,9 +24,9 @@
 
 import Foundation
 
-public protocol SocketLogger: class {
+public protocol SocketLogger : class {
     /// Whether to log or not
-    var log: Bool {get set}
+    var log: Bool { get set }
     
     /// Normal log messages
     func log(message: String, type: String, args: AnyObject...)
@@ -54,7 +54,7 @@ public extension SocketLogger {
     }
 }
 
-class DefaultSocketLogger: SocketLogger {
+class DefaultSocketLogger : SocketLogger {
     static var Logger: SocketLogger = DefaultSocketLogger()
 
     var log = false

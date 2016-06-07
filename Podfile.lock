@@ -2,35 +2,52 @@ PODS:
   - Alamofire (3.2.1)
   - AsyncSwift (1.7.2)
   - Atlantis (0.1.1)
-  - Neon (0.0.3)
-  - SDWebImage (3.7.5):
-    - SDWebImage/Core (= 3.7.5)
-  - SDWebImage/Core (3.7.5)
-  - Signals (2.3.0)
-  - Socket.IO-Client-Swift (5.3.3)
-  - Tide (0.1.5):
+  - Neon (0.2.0)
+  - Pacific (0.1.1):
+    - Alamofire (= 3.2.1)
     - AsyncSwift
+    - Atlantis
+    - Pantry
+    - Socket.IO-Client-Swift
+    - SwiftDate
+    - SwiftyJSON
+  - Pantry (0.2.1)
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
+  - Socket.IO-Client-Swift (6.1.2)
+  - Storm (0.0.7):
+    - AsyncSwift
+    - Atlantis
+    - SwiftDate
+  - SwiftDate (3.0.8)
+  - SwiftyJSON (2.3.2)
+  - Tide (0.1.7):
+    - AsyncSwift
+    - SDWebImage
+    - Storm
 
 DEPENDENCIES:
-  - Alamofire (= 3.2.1)
-  - AsyncSwift (= 1.7.2)
-  - Atlantis
-  - Neon (= 0.0.3)
-  - SDWebImage (= 3.7.5)
-  - Signals (= 2.3.0)
-  - Socket.IO-Client-Swift (= 5.3.3)
+  - Neon
+  - Pacific
+  - Storm
+  - SwiftDate
   - Tide
 
 SPEC CHECKSUMS:
   Alamofire: f11d8624a05f5d39e0c99309b3e600a3ba64298a
   AsyncSwift: 46a78bceb11f0e5bb52747f740d9692ec78d2d7c
   Atlantis: 33d4c4c436b6af3b640c2c6b2317c72d1fb41f00
-  Neon: 589d3d217d326abe09726bf81add106cff685bf2
-  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
-  Signals: d47128787e1675858f956556397e482fd667bd96
-  Socket.IO-Client-Swift: debd5c155e4299e33854fbd26bfeaafcbc6df6c6
-  Tide: 0b38feb296b3fa90d3428b986398a0c8325032d1
+  Neon: c7de6b6186c31870a0cacab6e018d0641bd12dca
+  Pacific: 9b907c8de73723c06e14919f6810687c830d6aca
+  Pantry: 433931c8f545dd3426ca7d09a4edd5afa89c6e01
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  Socket.IO-Client-Swift: 60a60e8bfd7b16bc57c90ff6329e9f536b5eacdd
+  Storm: 2db726b2fbb967bc6f4a4bca76c7dfcf38cb911f
+  SwiftDate: 971f8b9394f664f2226b9c3ab64e801a7291c612
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  Tide: 7ee8f9f5826b6605458d5f4622499b3e80bdfb12
 
-PODFILE CHECKSUM: 09a3c8d74c7f3820ba88f6dfa202143980c1f1ce
+PODFILE CHECKSUM: 83f9370521e13ccca24c224df6aa1143cfe50e2f
 
 COCOAPODS: 1.0.1

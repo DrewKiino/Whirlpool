@@ -9,14 +9,15 @@
 /* Begin PBXBuildFile section */
 		05A8679CA75F324F278E4DC8 /* Pods_Whirlpool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C4D329AFAD639BF458E9BF /* Pods_Whirlpool.framework */; };
 		1624B4CDFC5AE8A4D443AA6F /* Pods_WhirlpoolTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5F71280F4700620E5E0115 /* Pods_WhirlpoolTests.framework */; };
+		EE073A421D075E4500C31D88 /* AppExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE073A411D075E4500C31D88 /* AppExtensions.swift */; };
+		EE073A441D0772BE00C31D88 /* WhirlpoolModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE073A431D0772BE00C31D88 /* WhirlpoolModels.swift */; };
 		EE21EC671D03B1FF00DE6D00 /* Whirlpool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE21EC661D03B1FF00DE6D00 /* Whirlpool.swift */; };
-		EE5219C51D03B14E00347396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5219C41D03B14E00347396 /* AppDelegate.swift */; };
-		EE5219C71D03B14E00347396 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5219C61D03B14E00347396 /* ViewController.swift */; };
-		EE5219CA1D03B14E00347396 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE5219C81D03B14E00347396 /* Main.storyboard */; };
 		EE5219CC1D03B14E00347396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE5219CB1D03B14E00347396 /* Assets.xcassets */; };
-		EE5219CF1D03B14E00347396 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE5219CD1D03B14E00347396 /* LaunchScreen.storyboard */; };
 		EE5219DA1D03B14E00347396 /* WhirlpoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5219D91D03B14E00347396 /* WhirlpoolTests.swift */; };
 		EE5219E51D03B14E00347396 /* WhirlpoolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5219E41D03B14E00347396 /* WhirlpoolUITests.swift */; };
+		EE69589E1D03FEC80007BD1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6958971D03FEC80007BD1C /* AppDelegate.swift */; };
+		EE82F5CD1D04855B00930F6C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82F5CC1D04855B00930F6C /* LoginView.swift */; };
+		EECF62B81D0401A0008EE340 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EECF62B71D0401A0008EE340 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,13 +44,11 @@
 		6E1EC65D6905BEC08D863073 /* Pods-WhirlpoolTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhirlpoolTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhirlpoolTests/Pods-WhirlpoolTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7343E7349E88145A54900CDD /* Pods-WhirlpoolTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhirlpoolTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhirlpoolTests/Pods-WhirlpoolTests.release.xcconfig"; sourceTree = "<group>"; };
 		D8C4D329AFAD639BF458E9BF /* Pods_Whirlpool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Whirlpool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE073A411D075E4500C31D88 /* AppExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppExtensions.swift; sourceTree = "<group>"; };
+		EE073A431D0772BE00C31D88 /* WhirlpoolModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhirlpoolModels.swift; sourceTree = "<group>"; };
 		EE21EC661D03B1FF00DE6D00 /* Whirlpool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Whirlpool.swift; sourceTree = "<group>"; };
 		EE5219C11D03B14E00347396 /* Whirlpool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whirlpool.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE5219C41D03B14E00347396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EE5219C61D03B14E00347396 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EE5219C91D03B14E00347396 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE5219CB1D03B14E00347396 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		EE5219CE1D03B14E00347396 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE5219D01D03B14E00347396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE5219D51D03B14E00347396 /* WhirlpoolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhirlpoolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE5219D91D03B14E00347396 /* WhirlpoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhirlpoolTests.swift; sourceTree = "<group>"; };
@@ -57,6 +56,9 @@
 		EE5219E01D03B14E00347396 /* WhirlpoolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhirlpoolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE5219E41D03B14E00347396 /* WhirlpoolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhirlpoolUITests.swift; sourceTree = "<group>"; };
 		EE5219E61D03B14E00347396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE6958971D03FEC80007BD1C /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Config/AppDelegate.swift; sourceTree = "<group>"; };
+		EE82F5CC1D04855B00930F6C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		EECF62B71D0401A0008EE340 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				EE21EC661D03B1FF00DE6D00 /* Whirlpool.swift */,
+				EE073A431D0772BE00C31D88 /* WhirlpoolModels.swift */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -106,6 +109,7 @@
 		EE5219B81D03B14E00347396 = {
 			isa = PBXGroup;
 			children = (
+				EECF62B71D0401A0008EE340 /* Default-568h@2x.png */,
 				EE5219C31D03B14E00347396 /* Whirlpool */,
 				EE5219D81D03B14E00347396 /* WhirlpoolTests */,
 				EE5219E31D03B14E00347396 /* WhirlpoolUITests */,
@@ -128,13 +132,11 @@
 		EE5219C31D03B14E00347396 /* Whirlpool */ = {
 			isa = PBXGroup;
 			children = (
+				EE6958941D03FEC00007BD1C /* Config */,
 				EE21EC641D03B1E400DE6D00 /* Assets */,
-				EE5219C41D03B14E00347396 /* AppDelegate.swift */,
-				EE5219C61D03B14E00347396 /* ViewController.swift */,
-				EE5219C81D03B14E00347396 /* Main.storyboard */,
 				EE5219CB1D03B14E00347396 /* Assets.xcassets */,
-				EE5219CD1D03B14E00347396 /* LaunchScreen.storyboard */,
 				EE5219D01D03B14E00347396 /* Info.plist */,
+				EE82F5CC1D04855B00930F6C /* LoginView.swift */,
 			);
 			path = Whirlpool;
 			sourceTree = "<group>";
@@ -155,6 +157,15 @@
 				EE5219E61D03B14E00347396 /* Info.plist */,
 			);
 			path = WhirlpoolUITests;
+			sourceTree = "<group>";
+		};
+		EE6958941D03FEC00007BD1C /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				EE6958971D03FEC80007BD1C /* AppDelegate.swift */,
+				EE073A411D075E4500C31D88 /* AppExtensions.swift */,
+			);
+			name = Config;
 			sourceTree = "<group>";
 		};
 		FF214D8514AAC1ECBB6DACCA /* Pods */ = {
@@ -278,9 +289,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE5219CF1D03B14E00347396 /* LaunchScreen.storyboard in Resources */,
 				EE5219CC1D03B14E00347396 /* Assets.xcassets in Resources */,
-				EE5219CA1D03B14E00347396 /* Main.storyboard in Resources */,
+				EECF62B81D0401A0008EE340 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,9 +408,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE5219C71D03B14E00347396 /* ViewController.swift in Sources */,
+				EE073A421D075E4500C31D88 /* AppExtensions.swift in Sources */,
+				EE073A441D0772BE00C31D88 /* WhirlpoolModels.swift in Sources */,
+				EE69589E1D03FEC80007BD1C /* AppDelegate.swift in Sources */,
+				EE82F5CD1D04855B00930F6C /* LoginView.swift in Sources */,
 				EE21EC671D03B1FF00DE6D00 /* Whirlpool.swift in Sources */,
-				EE5219C51D03B14E00347396 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,25 +446,6 @@
 			targetProxy = EE5219E11D03B14E00347396 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		EE5219C81D03B14E00347396 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EE5219C91D03B14E00347396 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		EE5219CD1D03B14E00347396 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EE5219CE1D03B14E00347396 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		EE5219E71D03B14E00347396 /* Debug */ = {

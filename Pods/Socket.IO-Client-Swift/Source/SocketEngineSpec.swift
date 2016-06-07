@@ -30,13 +30,13 @@ import Foundation
     var closed: Bool { get }
     var connected: Bool { get }
     var connectParams: [String: AnyObject]? { get set }
+    var doubleEncodeUTF8: Bool { get }
     var cookies: [NSHTTPCookie]? { get }
     var extraHeaders: [String: String]? { get }
     var fastUpgrade: Bool { get }
     var forcePolling: Bool { get }
     var forceWebsockets: Bool { get }
     var parseQueue: dispatch_queue_t! { get }
-    var pingTimer: NSTimer? { get }
     var polling: Bool { get }
     var probing: Bool { get }
     var emitQueue: dispatch_queue_t! { get }
@@ -46,14 +46,15 @@ import Foundation
     var urlPolling: NSURL { get }
     var urlWebSocket: NSURL { get }
     var websocket: Bool { get }
+    var ws: WebSocket? { get }
     
     init(client: SocketEngineClient, url: NSURL, options: NSDictionary?)
     
-    func close(reason: String)
+    func connect()
     func didError(error: String)
+    func disconnect(reason: String)
     func doFastUpgrade()
     func flushWaitingForPostToWebSocket()
-    func open()
     func parseEngineData(data: NSData)
     func parseEngineMessage(message: String, fromPolling: Bool)
     func write(msg: String, withType type: SocketEnginePacketType, withData data: [NSData])
@@ -62,14 +63,14 @@ import Foundation
 extension SocketEngineSpec {
     var urlPollingWithSid: NSURL {
         let com = NSURLComponents(URL: urlPolling, resolvingAgainstBaseURL: false)!
-        com.query = com.query! + "&sid=\(sid)"
+        com.percentEncodedQuery = com.percentEncodedQuery! + "&sid=\(sid.urlEncode()!)"
         
         return com.URL!
     }
     
     var urlWebSocketWithSid: NSURL {
         let com = NSURLComponents(URL: urlWebSocket, resolvingAgainstBaseURL: false)!
-        com.query = com.query! + (sid == "" ? "" : "&sid=\(sid)")
+        com.percentEncodedQuery = com.percentEncodedQuery! + (sid == "" ? "" : "&sid=\(sid.urlEncode()!)")
         
         return com.URL!
     }
@@ -86,6 +87,24 @@ extension SocketEngineSpec {
             let str = "b4" + data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
             
             return .Right(str)
+        }
+    }
+    
+    func doubleEncodeUTF8(string: String) -> String {
+        if let latin1 = string.dataUsingEncoding(NSUTF8StringEncoding),
+            utf8 = NSString(data: latin1, encoding: NSISOLatin1StringEncoding) {
+                return utf8 as String
+        } else {
+            return string
+        }
+    }
+    
+    func fixDoubleUTF8(string: String) -> String {
+        if let utf8 = string.dataUsingEncoding(NSISOLatin1StringEncoding),
+            latin1 = NSString(data: utf8, encoding: NSUTF8StringEncoding) {
+                return latin1 as String
+        } else {
+            return string
         }
     }
     

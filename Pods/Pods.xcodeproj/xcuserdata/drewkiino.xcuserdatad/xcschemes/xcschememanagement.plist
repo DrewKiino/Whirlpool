@@ -24,6 +24,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pacific.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pantry.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Whirlpool.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -39,12 +49,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Signals.xcscheme</key>
+		<key>Socket.IO-Client-Swift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Socket.IO-Client-Swift.xcscheme</key>
+		<key>Storm.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftDate.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -57,22 +77,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>122176C4FF16905688CB9B0BA191138C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1D7022CAFACAA194DFF7E0C2EA51DD4A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1D9929417F1381BD36F10D560632CDFB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>2620F12C1176436B3B3784520F311BC7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>29FBAE97DE1296C6B718D5D7E246D659</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,12 +92,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>42C5E0AE4202FF53577172FC09708C61</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>49D58AAB89C94F66883F51B05AC635ED</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>514AD73B93B8B09AB38937AC19A3F9A2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>69F35F0124AE16259C4B742BFB646E20</key>
+		<key>6C26F5915F75B45F921E3C0D11C27B73</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,12 +117,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>950E75ED3605DBA44EDDC7D53A895808</key>
+		<key>99EC3647773C18D660E11B521A289377</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AC5F721FC868D3B1ACEDEC001D15C1D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>D1DC35DB2C695031A72543555FB23729</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E974A14CA306D173BA5C9AA43F5A8529</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F9ABD8EA8927D3116E02E5818587757D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FEA8FD7588B666B5C17F5455F4B88B13</key>
 		<dict>
 			<key>primary</key>
 			<true/>

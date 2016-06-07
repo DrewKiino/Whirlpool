@@ -9,288 +9,401 @@
 import Foundation
 import UIKit
 import Neon
-import SDWebImage
+import Pacific
 import Tide
-import SDWebImage
+import Storm
+import SwiftDate
 
-public class Whirlpool: BasicView, UITableViewDelegate, UITableViewDataSource {
+public struct Whirlpool {
   
-  // dynamic vars
-  private var keyboardHeight: CGFloat = 0
-  
-  // MVC
-  private let controller = Controller()
-  private let model = Model()
-  
-  // views
-  private var tableView: UITableView?
-  private var inputContainer: InputContainer?
-  
-  public override func setup() {
+  public class ChatView: BasicView, UITableViewDelegate, UITableViewDataSource {
     
-    // setup controller
-    controller.layoutViewsBlock = { [weak self] keyboardHeight in
-      self?.keyboardHeight = keyboardHeight
-      self?.layoutSubviews()
+    // dynamic vars
+    private var keyboardHeight: CGFloat = 0
+    
+    // MVC
+    private let controller = Controller()
+    private var model: Model { get { return controller.model } }
+    
+    // views
+    private var tableView: UITableView?
+    private var inputContainer: InputContainer?
+    
+    public convenience init(
+      user: WhirlpoolModels.User?,
+      room: String? = nil
+      ) {
+        self.init()
+        
+        model.username = user?.username
+        model.userImageUrl = user?.userImageUrl
+        model.room = room
+        
+        setup()
     }
     
-    // Setup table view
-    tableView = UITableView()
-    tableView?.separatorColor = .clearColor()
-    tableView?.delegate = self
-    tableView?.dataSource = self
-    tableView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismissKeyboard"))
-    tableView?.registerClass(MessageCell.self, forCellReuseIdentifier: "MessageCell")
-    addSubview(tableView!)
-    
-    inputContainer = InputContainer()
-    inputContainer?.backgroundColor = .whiteColor()
-    inputContainer?.textFieldDidBeginEditingBlock = { [weak self] in
-    }
-    inputContainer?.textFieldDidEndEditingBlock = { [weak self] in
+    public convenience init(
+      username: String,
+      userImageUrl: String,
+      room: String? = nil
+    ) {
+      self.init()
       
-    }
-    addSubview(inputContainer!)
-  }
-  
-  public override func layoutSubviews() {
-    super.layoutSubviews()
-    
-    inputContainer?.anchorToEdge(.Bottom, padding: keyboardHeight, width: frame.width, height: 48)
-    tableView?.alignAndFill(align: .AboveCentered, relativeTo: inputContainer!, padding: 0)
-    
-    inputContainer?.layer.shadowColor = UIColor.blackColor().CGColor
-    inputContainer?.layer.shadowOpacity = 0.05
-    inputContainer?.layer.shadowOffset = CGSizeMake(0, -1)
-    inputContainer?.layer.shadowRadius = 1.0
-    inputContainer?.layer.masksToBounds = false
-  }
-  
-  public func dismissKeyboard() {
-    inputContainer?.inputTextField?.resignFirstResponder()
-  }
-  
-  // MARK: class methods
-  
-  public func append(message: Message) -> Self {
-    model.messages.append(message)
-    return self
-  }
-  
-  public func reload() -> Self {
-    tableView?.reloadData()
-    return self
-  }
-  
-  // MARK: Tableview methods
-  
-  public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    if let height = model.messages[indexPath.row].text?.height(frame.width - 16) {
-      return max(64, height + 40)
-    } else {
-      return 64
-    }
-  }
-  
-  public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return model.messages.count
-  }
-  
-  public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    if let cell = tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as? MessageCell {
+      model.username = username
+      model.userImageUrl = userImageUrl
+      model.room = room
       
-      cell.textView?.text = model.messages[indexPath.row].text
-      cell.usernameLabel?.text = model.messages[indexPath.row].username
-      cell.userImageUrl = model.messages[indexPath.row].userImageUrl
-      cell.timestampLabel?.text = model.messages[indexPath.row].timestamp
-      cell.containerView?.backgroundColor = .whiteColor()
-//      cell.containerView?.backgroundColor = indexPath.row % 2 == 0 ? .greenColor() : .yellowColor()
-      
-      return cell
-    }
-    return UITableViewCell()
-  }
-  
-  // MARK: classes
-  
-  public class Message {
-    
-    public var text: String?
-    public var username: String?
-    public var userImageUrl: String?
-    public var timestamp: String?
-    
-    public init(text: String?, username: String?, userImageUrl: String?, timestamp: String?) {
-      self.text = text
-      self.userImageUrl = userImageUrl
-      self.username = username
-      self.timestamp = timestamp
-    }
-  }
-  
-  public class Controller: NSObject {
-    
-    private var layoutViewsBlock: ((keyboardHeight: CGFloat) -> Void)?
-    
-    public override init() {
-      super.init()
-      NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-      NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-    }
-    
-    deinit {
-      NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: self)
-      NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: self)
-    }
-    
-    
-    public func keyboardWillShow(notification: NSNotification) {
-      if let userInfo = notification.userInfo as? NSDictionary {
-        layoutViewsBlock?(keyboardHeight: userInfo.objectForKey(UIKeyboardFrameEndUserInfoKey)?.CGRectValue.height ?? 0)
-      }
-    }
-    
-    public func keyboardWillHide(notification: NSNotification) {
-      layoutViewsBlock?(keyboardHeight: 0)
-    }
-  }
-  
-  public class Model {
-    private var messages: [Message] = []
-  }
-  
-  private class MessageCell: UITableViewCell {
-    
-    private var containerView: UIView?
-    
-    private var usernameLabel: UILabel?
-    private var userImageView: UIImageView?
-    private var timestampLabel: UILabel?
-    private var textView: UITextView?
-    
-    private var userImageUrl: String?
-    
-    private override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-      super.init(style: style, reuseIdentifier: reuseIdentifier)
       setup()
     }
-    
-    private required init?(coder aDecoder: NSCoder) {
-      super.init(coder: aDecoder)
-      setup()
-    }
-    
-    private override func layoutSubviews() {
-      super.layoutSubviews()
-      
-      containerView?.fillSuperview(left: 8, right: 8, top: 4, bottom: 4)
-      containerView?.layer.shadowColor = UIColor.blackColor().CGColor
-      containerView?.layer.shadowOpacity = 0.05
-      containerView?.layer.shadowOffset = CGSizeMake(-2, 3)
-      containerView?.layer.shadowRadius = 1.0
-      containerView?.layer.masksToBounds = false
-      
-      userImageView?.anchorInCorner(.TopLeft, xPad: 8, yPad: 8, width: 24, height: 24)
-      userImageView?.backgroundColor = .clearColor()
-      
-      timestampLabel?.anchorInCorner(.TopRight, xPad: 8, yPad: 8, width: timestampLabel?.text?.width(24) ?? 0, height: 24)
-      
-      usernameLabel?.alignBetweenHorizontal(align: .ToTheRightCentered, primaryView: userImageView!, secondaryView: timestampLabel!, padding: 8, height: 24)
-      
-      textView?.alignAndFillWidth(
-        align: .UnderMatchingLeft,
-        relativeTo: userImageView!,
-        padding: 4,
-        height: (textView?.text.height(containerView?.frame.width ?? frame.width) ?? 0) + 8
-      )
-      
-      userImageView?.imageFromUrl(userImageUrl, maskWithEllipse: true)
-    }
-    
-    private func setup() {
-      
-      backgroundColor = .clearColor()
-      
-      containerView = UIView()
-      containerView?.backgroundColor = .whiteColor()
-      addSubview(containerView!)
-      
-      containerView?.layer.cornerRadius = 2.0
-      containerView?.layer.masksToBounds = true
-      
-      // MARK: setup username label
-      usernameLabel = UILabel()
-      usernameLabel?.font = UIFont.systemFontOfSize(12)
-      containerView?.addSubview(usernameLabel!)
-      
-      // MARK: setup timestamp label
-      timestampLabel = UILabel()
-      timestampLabel?.font = UIFont.systemFontOfSize(12)
-      containerView?.addSubview(timestampLabel!)
-      
-      // MARK: setup user image view
-      userImageView = UIImageView()
-      containerView?.addSubview(userImageView!)
-      
-      // MARK: setup text view
-      textView = UITextView()
-      textView?.backgroundColor = .clearColor()
-      textView?.contentInset = UIEdgeInsetsMake(-8.0, -5.0, 0.0, 0.0)
-      textView?.font = UIFont.systemFontOfSize(12)
-      textView?.editable = false
-      textView?.scrollEnabled = false
-//      textView?.backgroundColor = .blueColor()
-      textView?.textAlignment = .Left
-      containerView?.addSubview(textView!)
-    }
-  }
-  
-  public class InputContainer: BasicView, UITextFieldDelegate {
-    
-    private var originalFrame: CGRect?
-    
-    private var inputTextField: UITextField?
-    private var sendButton: UIButton?
-    
-    private var textFieldDidBeginEditingBlock: (() -> Void)?
-    private var textFieldDidEndEditingBlock: (() -> Void)?
     
     public override func setup() {
-      super.setup()
       
-      inputTextField = UITextField()
-      inputTextField?.delegate = self
-      inputTextField?.font = UIFont.systemFontOfSize(12)
-      inputTextField?.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)
-      inputTextField?.layer.borderColor = UIColor(white: 0, alpha: 0.1).CGColor
-      inputTextField?.layer.borderWidth = 0.5
-      inputTextField?.layer.cornerRadius = 5.0
-      addSubview(inputTextField!)
+      backgroundColor = .whiteColor()
       
-      sendButton = UIButton()
-      sendButton?.setTitle("Send", forState: .Normal)
-      sendButton?.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), forState: .Normal)
-      sendButton?.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 0.5), forState: .Highlighted)
-      addSubview(sendButton!)
+      // setup controller
+      controller.setup()
+      controller.layoutViewsBlock = { [weak self] keyboardHeight in
+        self?.keyboardHeight = keyboardHeight
+        self?.layoutSubviews()
+      }
+      controller.keyboardDidShowBlock = { [weak self] in
+        self?.scrollToMostRecent()
+      }
+      controller.receivedMessageBlock = { [weak self] in
+        self?.simulateReceivedMessage()
+        log.info("message received")
+      }
+      controller.sendPendingBlock = { [weak self] message_id in
+        if let message = (self?.model.messages.filter { $0.message_id == message_id })?.first {
+          message.pending = true
+        }
+        self?.simulateReceivedMessage()
+        log.info(("message sent pending"))
+      }
+      controller.sendSuccessfulBlock = { [weak self] message_id in
+        if let message = (self?.model.messages.filter { $0.message_id == message_id })?.first {
+          message.pending = false
+        }
+        self?.simulateReceivedMessage()
+        log.info("message sent success")
+      }
+      
+      // Setup table view
+      tableView = UITableView()
+      tableView?.separatorColor = .clearColor()
+      tableView?.delegate = self
+      tableView?.dataSource = self
+      tableView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismissKeyboard"))
+      tableView?.registerClass(WhirlpoolModels.MessageCell.self, forCellReuseIdentifier: "MessageCell")
+      addSubview(tableView!)
+      
+      inputContainer = InputContainer()
+      inputContainer?.hidden = true
+      inputContainer?.backgroundColor = .whiteColor()
+      inputContainer?.textFieldDidBeginEditingBlock = { [weak self] in
+      }
+      inputContainer?.textFieldDidEndEditingBlock = { [weak self] in
+      }
+      inputContainer?.sendButtonOnPressBlock = { [weak self] button, text in
+        self?.controller.sendMessage(WhirlpoolModels.Message(
+          text: text,
+          username: self?.model.username,
+          userImageUrl: self?.model.userImageUrl,
+          session_id: self?.model.session_id,
+          room: self?.model.room
+        ))
+      }
+      
+      addSubview(inputContainer!)
     }
     
     public override func layoutSubviews() {
       super.layoutSubviews()
       
-      originalFrame = frame
       
-      sendButton?.anchorToEdge(.Right, padding: 8, width: 48, height: 24)
-      inputTextField?.alignAndFillWidth(align: .ToTheLeftCentered, relativeTo: sendButton!, padding: 8, height: 24)
+      fillSuperview(left: 0, right: 0, top: 0, bottom: 0)
+      
+      inputContainer?.hidden = false
+      inputContainer?.anchorToEdge(.Bottom, padding: keyboardHeight, width: frame.width, height: 48)
+      tableView?.alignAndFill(align: .AboveCentered, relativeTo: inputContainer!, padding: 0)
+      
+      inputContainer?.layer.shadowColor = UIColor.blackColor().CGColor
+      inputContainer?.layer.shadowOpacity = 0.05
+      inputContainer?.layer.shadowOffset = CGSizeMake(0, -1)
+      inputContainer?.layer.shadowRadius = 1.0
+      inputContainer?.layer.masksToBounds = false
     }
     
-    // MARK: textfield methods
-    
-    public func textFieldDidBeginEditing(textField: UITextField) {
-      textFieldDidBeginEditingBlock?()
+    public func dismissKeyboard() {
+      inputContainer?.inputTextField?.resignFirstResponder()
     }
     
-    public func textFieldDidEndEditing(textField: UITextField) {
-      textFieldDidEndEditingBlock?()
+    // MARK: class methods
+    
+    public func append(message: WhirlpoolModels.Message) -> Self {
+      model.messages.append(message)
+      return self
+    }
+    
+    public func reload() -> Self {
+      tableView?.reloadData()
+      return self
+    }
+    
+    public func simulateReceivedMessage() {
+      tableView?.reloadData()
+      scrollToMostRecent()
+    }
+    
+    public func scrollToMostRecent() {
+      tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: model.messages.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: true)
+    }
+    
+    // MARK: Tableview methods
+    
+    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+      if let height = model.messages[indexPath.row].text?.height(frame.width - 16) {
+        return isConsecutiveMessage(indexPath) ? 48 : max(64, height + 20)
+      } else {
+        return 64
+      }
+    }
+    
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      return model.messages.count
+    }
+    
+    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+      if let cell = tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as? WhirlpoolModels.MessageCell {
+        
+        cell.textView?.text = model.messages[indexPath.row].text
+        cell.usernameLabel?.text = model.messages[indexPath.row].username
+        cell.userImageUrl = model.messages[indexPath.row].userImageUrl
+        cell.timestampLabel?.text = model.messages[indexPath.row].timestamp?.toDateFromISO8601()?.toSimpleString()
+
+        cell.containerView?.backgroundColor = model.messages[indexPath.row].pending ? UIColor(red: 252/255, green: 252/255, blue: 252/255, alpha: 1.0) : .whiteColor()
+        
+        cell.isConsecutiveMessage = isConsecutiveMessage(indexPath)
+        cell.isLastConsecutiveMessage = isLastConsecutiveMessage(indexPath)
+        cell.isLastMessage = model.messages.count - 1 == indexPath.row
+        
+        return cell
+      }
+      return UITableViewCell()
+    }
+    
+    private func isConsecutiveMessage(indexPath: NSIndexPath) -> Bool {
+      if model.messages.count > 1 && indexPath.row > 0 {
+        return model.messages[indexPath.row].username == model.messages[indexPath.row - 1].username
+      }
+      return false
+    }
+    
+    private func isLastConsecutiveMessage(indexPath: NSIndexPath) -> Bool {
+      if model.messages.count > 1 && indexPath.row < model.messages.count - 1 {
+        return model.messages[indexPath.row].username != model.messages[indexPath.row + 1].username
+      }
+      return false
+    }
+    
+    // MARK: classes
+    
+    
+    // MARK: Controller
+    
+    public class Controller: NSObject {
+      
+      public let model = Model()
+      
+      private var socket: Socket?
+      
+      private var keyboardDidShowBlock: (() -> Void)?
+      private var layoutViewsBlock: ((keyboardHeight: CGFloat) -> Void)?
+      private var receivedMessageBlock: (() -> Void)?
+      private var sendSuccessfulBlock: ((message_id: String?) -> Void)?
+      private var sendPendingBlock: ((message_id: String?) -> Void)?
+      
+      public override init() {
+        super.init()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+      }
+      
+      private func setup() {
+        
+        socket = Socket(room: model.room)
+        
+        socket?.on("chat.message.fromServer") { [weak self] json in
+          if json["session_id"].string == self?.model.session_id
+            || json["session_id"].string == UIDevice.currentDevice().identifierForVendor?.UUIDString
+          {
+            return
+          }
+          let message = WhirlpoolModels.Message(
+            text: json["text"].string,
+            username: json["username"].string,
+            userImageUrl: json["userImageUrl"].string,
+            timestamp: json["timestamp"].string,
+            message_id: json["message_id"].string,
+            session_id: json["session_id"].string,
+            room: json["room"].string
+          )
+          self?.model.messages.append(message)
+          self?.receivedMessageBlock?()
+        }
+        
+        socket?.on("chat.message.response") { [weak self] json in
+          if json["status"].int == 200 {
+            self?.sendSuccessfulBlock?(message_id: json["message_id"].string)
+          }
+        }
+        
+        socket?.on("chat.join.response") { [weak self] json in
+          if let room = json["room"].string {
+            log.info("joined room: \(room)")
+          }
+        }
+        
+        socket?.onConnect("Whirlpool.Controller") { [weak self] in
+          self?.model.session_id = self?.socket?.session_id
+          self?.model.pendingMessages.forEach { [weak self] message in
+            self?.socket?.emit("chat.message", objects: message.toJSON())
+          }
+          self?.model.pendingMessages.removeAll(keepCapacity: false)
+        }
+        
+        socket?.connect()
+        
+        getMessages()
+      }
+      
+      deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: self)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: self)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: self)
+        
+        if socket?.isConnected() == true {
+          socket?.disconnect()
+        }
+      }
+      
+      public func keyboardDidShow(notification: NSNotification) {
+        keyboardDidShowBlock?()
+      }
+      
+      public func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo as? NSDictionary {
+          layoutViewsBlock?(keyboardHeight: userInfo.objectForKey(UIKeyboardFrameEndUserInfoKey)?.CGRectValue.height ?? 0)
+        }
+      }
+      
+      public func keyboardWillHide(notification: NSNotification) {
+        layoutViewsBlock?(keyboardHeight: 0)
+      }
+      
+      public func sendMessage(message: WhirlpoolModels.Message) {
+        if socket?.isConnected() == false {
+          model.pendingMessages.append(message)
+        } else {
+          socket?.emit("chat.message", objects: message.toJSON())
+        }
+        model.messages.append(message)
+        sendPendingBlock?(message_id: message.message_id)
+      }
+      
+      public func getMessages() {
+        let room: String = model.room ?? ""
+        App.GET("/chat/getMessages?room=\(room)") { [weak self] json, error in
+          if let array = json?.array {
+            array.forEach { [weak self] json in
+              let message = WhirlpoolModels.Message(
+                text: json["text"].string,
+                username: json["username"].string,
+                userImageUrl: json["userImageUrl"].string,
+                timestamp: json["timestamp"].string,
+                message_id: json["message_id"].string,
+                session_id: json["session_id"].string,
+                room: json["room"].string
+              )
+              self?.model.messages.append(message)
+            }
+            self?.receivedMessageBlock?()
+          }
+        }
+      }
+    }
+    
+    public class Model {
+      
+      public var users: [WhirlpoolModels.User] = []
+      
+      private var username: String?
+      private var userImageUrl: String?
+      
+      private var room: String?
+      private var session_id: String?
+      
+      private var messages: [WhirlpoolModels.Message] = []
+      private var pendingMessages: [WhirlpoolModels.Message] = []
+    }
+    
+    public class InputContainer: BasicView, UITextFieldDelegate {
+      
+      private var originalFrame: CGRect?
+      
+      private var inputTextField: UITextField?
+      private var sendButton: UIButton?
+      
+      private var textFieldDidBeginEditingBlock: (() -> Void)?
+      private var textFieldDidEndEditingBlock: (() -> Void)?
+      private var sendButtonOnPressBlock: ((sender: UIButton, text: String?) -> Void)?
+      
+      public override func setup() {
+        super.setup()
+        
+        inputTextField = UITextField()
+        inputTextField?.delegate = self
+        inputTextField?.font = UIFont.systemFontOfSize(12)
+        inputTextField?.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)
+        inputTextField?.layer.borderColor = UIColor(white: 0, alpha: 0.5).CGColor
+        inputTextField?.layer.borderWidth = 0.5
+        inputTextField?.layer.cornerRadius = 5.0
+        addSubview(inputTextField!)
+        
+        sendButton = UIButton()
+        sendButton?.setTitle("Send", forState: .Normal)
+        sendButton?.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), forState: .Normal)
+        sendButton?.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 0.5), forState: .Highlighted)
+        sendButton?.addTarget(self, action: "sendButtonPressed:", forControlEvents: .TouchUpInside)
+        addSubview(sendButton!)
+      }
+      
+      public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        originalFrame = frame
+        
+        sendButton?.anchorToEdge(.Right, padding: 8, width: 48, height: 24)
+        inputTextField?.alignAndFillWidth(align: .ToTheLeftCentered, relativeTo: sendButton!, padding: 8, height: 24)
+      }
+      
+      public func sendButtonPressed(sender: UIButton) {
+        if inputTextField?.text?.isEmpty == true { return }
+        sendButtonOnPressBlock?(sender: sender, text: inputTextField?.text)
+        inputTextField?.text = nil
+      }
+      
+      // MARK: textfield methods
+      
+      public func textFieldDidBeginEditing(textField: UITextField) {
+        textFieldDidBeginEditingBlock?()
+      }
+      
+      public func textFieldDidEndEditing(textField: UITextField) {
+        textFieldDidEndEditingBlock?()
+      }
     }
   }
 }
@@ -315,99 +428,29 @@ public class BasicView: UIView {
   public func setup() {}
 }
 
-extension String {
-  
-  func height(width: CGFloat, font: UIFont = UIFont.systemFontOfSize(12)) -> CGFloat{
-    let height = self.boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options:
-      NSStringDrawingOptions.UsesLineFragmentOrigin,
-      attributes: [
-        NSFontAttributeName: font
-      ],
-      context: nil
-    ).height
-    return height > 24 ? height * 1.12 : height
-    // WHY add a modifier? because at large texts, textview height will always return the height minus some lines 
-    // for some reason, so we compensate by adding the height of line which justly estimates around this number
-  }
-  
-  func width(height: CGFloat, font: UIFont = UIFont.systemFontOfSize(12)) -> CGFloat {
-    let width = self.boundingRectWithSize(CGSize(width: CGFloat.max, height: height), options:
-      NSStringDrawingOptions.UsesLineFragmentOrigin,
-      attributes: [
-        NSFontAttributeName: font
-      ],
-      context: nil
-      ).width
-    return width
-    // WHY add a modifier? because at large texts, textview height will always return the height minus some lines
-    // for some reason, so we compensate by adding the height of line which justly estimates around this number
-  }
-}
 
-extension UIImageView {
+
+
+extension NSDate {
   
-  public func imageFromUrl (
-    url: String?,
-    placeholder: UIImage? = nil,
-    maskWithEllipse: Bool = false,
-    block: ((image: UIImage?) -> Void)? = nil)
-  {
-    if let url = url, let nsurl = NSURL(string: url) {
-      // set the tag with the url's unique hash value
-      if tag == url.hashValue { return }
-      // else set the new tag as the new url's hash value
-      tag = url.hashValue
-      image = nil
-      // show activity
-      showActivityView(nil, width: frame.width, height: frame.height)
-      // begin image download
-      SDWebImageManager.sharedManager().downloadImageWithURL(nsurl, options: [], progress: { (received: NSInteger, actual: NSInteger) -> Void in
-        }) { [weak self] (image, error, cache, finished, nsurl) -> Void in
-          block?(image: image)
-          if maskWithEllipse {
-            self?.fitClip(image) { [weak self] image in self?.rounded(image) }
-          } else {
-            self?.fitClip(image)
-          }
-          self?.dismissActivityView()
-      }
-    } else {
-      image = placeholder
-      if maskWithEllipse {
-        fitClip() { [weak self] image in self?.rounded(image) }
+  public func toSimpleString() -> String? {
+    if self >= NSDate() - 60.seconds {
+      return "Just Now"
+    } else if let dateString = toString(
+      dateStyle: .ShortStyle,
+      timeStyle: .ShortStyle,
+      inRegion: DateRegion(),
+      relative: true
+    ) {
+      if isInToday() {
+        return dateString.stringByReplacingOccurrencesOfString("Today, ", withString: "")
       } else {
-        fitClip()
+        return dateString
       }
     }
+    return nil
   }
 }
-
-
-extension UIView {
-  
-  public func showActivityView(heightOffset: CGFloat? = nil, width: CGFloat? = nil, height: CGFloat? = nil, style: UIActivityIndicatorViewStyle = .Gray) {
-    dismissActivityView()
-    var activityView: UIActivityIndicatorView! = UIActivityIndicatorView(activityIndicatorStyle: style)
-    activityView.frame = CGRectMake(0, heightOffset ?? 0, width ?? frame.width, height ?? frame.height)
-    activityView.tag = 1337
-    activityView.startAnimating()
-    addSubview(activityView)
-    activityView = nil
-  }
-  
-  public func dismissActivityView() {
-    for view in subviews {
-      if let activityView = view as? UIActivityIndicatorView where activityView.tag == 1337 {
-        activityView.stopAnimating()
-        activityView.removeFromSuperview()
-      }
-    }
-  }
-}
-
-
-
-
 
 
 

@@ -8,7 +8,9 @@
 
 import UIKit
 import CoreGraphics
+import SDWebImage
 import Async
+import Storm
 
 public class Tide {
   
@@ -284,10 +286,38 @@ extension UIImageView {
     }
     return self
   }
+  
+  public func imageFromUrl (
+    url: String?,
+    placeholder: UIImage? = nil,
+    maskWithEllipse: Bool = false,
+    block: ((image: UIImage?) -> Void)? = nil)
+  {
+    if let url = url, let nsurl = NSURL(string: url) {
+      // set the tag with the url's unique hash value
+      if tag == url.hashValue { return }
+      // else set the new tag as the new url's hash value
+      tag = url.hashValue
+      image = nil
+      // show activity
+      showActivityView(nil, width: frame.width, height: frame.height)
+      // begin image download
+      SDWebImageManager.sharedManager().downloadImageWithURL(nsurl, options: [], progress: { (received: NSInteger, actual: NSInteger) -> Void in
+      }) { [weak self] (image, error, cache, finished, nsurl) -> Void in
+        block?(image: image)
+        if maskWithEllipse {
+          self?.fitClip(image) { [weak self] image in self?.rounded(image) }
+        } else {
+          self?.fitClip(image)
+        }
+        self?.dismissActivityView()
+      }
+    } else {
+      image = placeholder
+      fitClip()
+    }
+  }
 }
-
-
-
 
 
 
