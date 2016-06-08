@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import Pacific
+import Async
 
 public struct WhirlpoolModels {
   
@@ -113,7 +115,11 @@ public struct WhirlpoolModels {
       userImageView?.hidden = isConsecutiveMessage
       timestampLabel?.hidden = !isLastConsecutiveMessage && isConsecutiveMessage && !isLastMessage
       
-      if isConsecutiveMessage {
+      if !isLastConsecutiveMessage && isConsecutiveMessage && !isLastMessage {
+        
+        textView?.fillSuperview(left: 8, right: 8, top: 8, bottom: 8)
+        
+      } else if isConsecutiveMessage {
         
         timestampLabel?.anchorInCorner(.TopRight, xPad: 8, yPad: 8, width: timestampLabel?.text?.width(24) ?? 0, height: 24)
         textView?.alignAndFill(align: .ToTheLeftMatchingTop, relativeTo: timestampLabel!, padding: 8)
@@ -151,7 +157,7 @@ public struct WhirlpoolModels {
       
       // MARK: setup username label
       usernameLabel = UILabel()
-      usernameLabel?.font = UIFont.systemFontOfSize(12)
+      usernameLabel?.font = UIFont.boldSystemFontOfSize(12)
       usernameLabel?.textAlignment = .Left
       containerView?.addSubview(usernameLabel!)
       
@@ -174,6 +180,7 @@ public struct WhirlpoolModels {
       textView?.editable = false
       textView?.scrollEnabled = false
       textView?.textAlignment = .Left
+      textView?.layer.masksToBounds = false
       containerView?.addSubview(textView!)
     }
   }

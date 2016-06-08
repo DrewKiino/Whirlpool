@@ -13,8 +13,14 @@ import Pacific
 import Tide
 import Storm
 import SwiftDate
+import Async
 
 public struct Whirlpool {
+  
+  public struct Config {
+    public static var skip: Int = 0
+    public static var paging: Int = 10
+  }
   
   public class ChatView: BasicView, UITableViewDelegate, UITableViewDataSource {
     
@@ -27,6 +33,7 @@ public struct Whirlpool {
     
     // views
     private var tableView: UITableView?
+    private var refreshControl: UIRefreshControl?
     private var inputContainer: InputContainer?
     
     public convenience init(
@@ -69,8 +76,8 @@ public struct Whirlpool {
       controller.keyboardDidShowBlock = { [weak self] in
         self?.scrollToMostRecent()
       }
-      controller.receivedMessageBlock = { [weak self] in
-        self?.simulateReceivedMessage()
+      controller.receivedMessageBlock = { [weak self] scroll, invertScroll in
+        self?.simulateReceivedMessage(scroll, invertScroll: invertScroll)
         log.info("message received")
       }
       controller.sendPendingBlock = { [weak self] message_id in
@@ -96,6 +103,10 @@ public struct Whirlpool {
       tableView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismissKeyboard"))
       tableView?.registerClass(WhirlpoolModels.MessageCell.self, forCellReuseIdentifier: "MessageCell")
       addSubview(tableView!)
+      
+      refreshControl = UIRefreshControl()
+      refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
+      tableView?.addSubview(refreshControl!)
       
       inputContainer = InputContainer()
       inputContainer?.hidden = true
@@ -141,7 +152,7 @@ public struct Whirlpool {
     // MARK: class methods
     
     public func append(message: WhirlpoolModels.Message) -> Self {
-      model.messages.append(message)
+      model.messages.insert(message, atIndex: 0)
       return self
     }
     
@@ -150,9 +161,19 @@ public struct Whirlpool {
       return self
     }
     
-    public func simulateReceivedMessage() {
-      tableView?.reloadData()
-      scrollToMostRecent()
+    public func simulateReceivedMessage(scroll: Bool = true, invertScroll: Bool = false) {
+      reload()
+      refreshControl?.endRefreshing()
+      if invertScroll && scroll {
+        scrollToMostLatest()
+      } else if scroll {
+        scrollToMostRecent()
+      }
+    }
+    
+    public func scrollToMostLatest() {
+      if model.messages.isEmpty { return }
+      tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
     }
     
     public func scrollToMostRecent() {
@@ -163,11 +184,12 @@ public struct Whirlpool {
     // MARK: Tableview methods
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-      if let height = model.messages[indexPath.row].text?.height(frame.width - 16) {
-        return isConsecutiveMessage(indexPath) ? 48 : max(64, height + 20)
-      } else {
-        return 64
+      if !model.messages.isEmpty {
+        if let height = model.messages[indexPath.row].text?.height(frame.width - 16) {
+          return isConsecutiveMessage(indexPath) ? max(48, height + 28) : max(64, height + 28)
+        }
       }
+      return 64
     }
     
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -175,13 +197,15 @@ public struct Whirlpool {
     }
     
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-      if let cell = tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as? WhirlpoolModels.MessageCell {
+      if let cell = tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as? WhirlpoolModels.MessageCell
+        where !model.messages.isEmpty
+      {
         
         cell.textView?.text = model.messages[indexPath.row].text
         cell.usernameLabel?.text = model.messages[indexPath.row].username
         cell.userImageUrl = model.messages[indexPath.row].userImageUrl
         cell.timestampLabel?.text = model.messages[indexPath.row].timestamp?.toDateFromISO8601()?.toSimpleString()
-
+        
         cell.containerView?.backgroundColor = model.messages[indexPath.row].pending ? UIColor(red: 252/255, green: 252/255, blue: 252/255, alpha: 1.0) : .whiteColor()
         
         cell.isConsecutiveMessage = isConsecutiveMessage(indexPath)
@@ -207,8 +231,10 @@ public struct Whirlpool {
       return false
     }
     
-    // MARK: classes
-    
+    // MARK: refresh 
+    public func refresh(sender: UIRefreshControl) {
+      controller.getMessages(model.messages.count, paging: Whirlpool.Config.paging, invertScroll: true)
+    }
     
     // MARK: Controller
     
@@ -220,7 +246,7 @@ public struct Whirlpool {
       
       private var keyboardDidShowBlock: (() -> Void)?
       private var layoutViewsBlock: ((keyboardHeight: CGFloat) -> Void)?
-      private var receivedMessageBlock: (() -> Void)?
+      private var receivedMessageBlock: ((scroll: Bool, invertScroll: Bool) -> Void)?
       private var sendSuccessfulBlock: ((message_id: String?) -> Void)?
       private var sendPendingBlock: ((message_id: String?) -> Void)?
       
@@ -252,7 +278,7 @@ public struct Whirlpool {
             room: json["room"].string
           )
           self?.model.messages.append(message)
-          self?.receivedMessageBlock?()
+          self?.receivedMessageBlock?(scroll: false, invertScroll: false)
         }
         
         socket?.on("chat.message.response") { [weak self] json in
@@ -268,6 +294,8 @@ public struct Whirlpool {
         }
         
         socket?.onConnect("Whirlpool.Controller") { [weak self] in
+          self?.model.messages.removeAll(keepCapacity: false)
+          self?.getMessages()
           self?.model.session_id = self?.socket?.session_id
           self?.model.pendingMessages.forEach { [weak self] message in
             self?.socket?.emit("chat.message", objects: message.toJSON())
@@ -276,8 +304,6 @@ public struct Whirlpool {
         }
         
         socket?.connect()
-        
-        getMessages()
       }
       
       deinit {
@@ -314,9 +340,9 @@ public struct Whirlpool {
         sendPendingBlock?(message_id: message.message_id)
       }
       
-      public func getMessages() {
+      public func getMessages(skip: Int = Whirlpool.Config.skip, paging: Int = Whirlpool.Config.paging, invertScroll: Bool = false) {
         let room: String = model.room ?? ""
-        App.GET("/chat/getMessages?room=\(room)") { [weak self] json, error in
+        App.GET("/chat/getMessages?room=\(room)&skip=\(skip)&paging=\(paging)") { [weak self] json, error in
           if let array = json?.array {
             array.forEach { [weak self] json in
               let message = WhirlpoolModels.Message(
@@ -328,9 +354,9 @@ public struct Whirlpool {
                 session_id: json["session_id"].string,
                 room: json["room"].string
               )
-              self?.model.messages.append(message)
+              self?.model.messages.insert(message, atIndex: 0)
             }
-            self?.receivedMessageBlock?()
+            self?.receivedMessageBlock?(scroll: true, invertScroll: invertScroll)
           }
         }
       }
