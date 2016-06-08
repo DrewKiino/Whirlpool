@@ -14,6 +14,7 @@ import Tide
 import Storm
 import SwiftDate
 import Async
+import UIColor_Hex_Swift
 
 public struct Whirlpool {
   
@@ -206,7 +207,10 @@ public struct Whirlpool {
         cell.userImageUrl = model.messages[indexPath.row].userImageUrl
         cell.timestampLabel?.text = model.messages[indexPath.row].timestamp?.toDateFromISO8601()?.toSimpleString()
         
-        cell.containerView?.backgroundColor = model.messages[indexPath.row].pending ? UIColor(red: 252/255, green: 252/255, blue: 252/255, alpha: 1.0) : .whiteColor()
+        cell.containerView?.backgroundColor = model.messages[indexPath.row].username == model.username
+          ? UIColor(red: 0/255, green: 255/255, blue: 127/255, alpha: 0.1)
+          : UIColor(red: 0/255, green: 191/255, blue: 255/255, alpha: 0.1)
+//        cell.containerView?.backgroundColor = model.messages[indexPath.row].pending ? UIColor(red: 252/255, green: 252/255, blue: 252/255, alpha: 1.0) : .whiteColor()
         
         cell.isConsecutiveMessage = isConsecutiveMessage(indexPath)
         cell.isLastConsecutiveMessage = isLastConsecutiveMessage(indexPath)

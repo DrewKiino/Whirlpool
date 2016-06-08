@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'FEA8FD7588B666B5C17F5455F4B88B13'
+               BlueprintIdentifier = '74AD85D02FE149AF62F34FAF465B8BA3'
                BlueprintName = 'Storm'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Storm.framework'>

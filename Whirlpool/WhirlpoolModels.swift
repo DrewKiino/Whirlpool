@@ -105,11 +105,11 @@ public struct WhirlpoolModels {
       super.layoutSubviews()
       
       containerView?.fillSuperview(left: 8, right: 8, top: 4, bottom: 4)
-      containerView?.layer.shadowColor = UIColor.blackColor().CGColor
-      containerView?.layer.shadowOpacity = 0.05
-      containerView?.layer.shadowOffset = CGSizeMake(-2, 3)
-      containerView?.layer.shadowRadius = 1.0
-      containerView?.layer.masksToBounds = false
+//      containerView?.layer.shadowColor = UIColor.blackColor().CGColor
+//      containerView?.layer.shadowOpacity = 0.05
+//      containerView?.layer.shadowOffset = CGSizeMake(-2, 3)
+//      containerView?.layer.shadowRadius = 1.0
+//      containerView?.layer.masksToBounds = false
       
       usernameLabel?.hidden = isConsecutiveMessage
       userImageView?.hidden = isConsecutiveMessage

@@ -26,6 +26,7 @@ PODS:
     - AsyncSwift
     - SDWebImage
     - Storm
+  - UIColor_Hex_Swift (2.1)
 
 DEPENDENCIES:
   - Neon
@@ -33,6 +34,7 @@ DEPENDENCIES:
   - Storm
   - SwiftDate
   - Tide
+  - UIColor_Hex_Swift
 
 SPEC CHECKSUMS:
   Alamofire: f11d8624a05f5d39e0c99309b3e600a3ba64298a
@@ -47,7 +49,8 @@ SPEC CHECKSUMS:
   SwiftDate: 971f8b9394f664f2226b9c3ab64e801a7291c612
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   Tide: 7ee8f9f5826b6605458d5f4622499b3e80bdfb12
+  UIColor_Hex_Swift: e91dc51f6bf252ec7bf74c8704ceedeeb7640c1c
 
-PODFILE CHECKSUM: 83f9370521e13ccca24c224df6aa1143cfe50e2f
+PODFILE CHECKSUM: ae97f9a81608d503d59996af106ab88d20a4b43d
 
 COCOAPODS: 1.0.1

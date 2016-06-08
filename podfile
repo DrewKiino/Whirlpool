@@ -18,6 +18,7 @@ pod 'Tide'
 # UI libs
 pod 'Neon'
 pod 'SwiftDate'
+pod 'UIColor_Hex_Swift'
 
 end
 
