@@ -83,13 +83,14 @@ public struct WhirlpoolModels {
     public var usernameLabel: UILabel?
     public var userImageView: UIImageView?
     public var timestampLabel: UILabel?
-    public var textView: UITextView?
     
     public var userImageUrl: String?
     
     public var isConsecutiveMessage: Bool = false
     public var isLastConsecutiveMessage: Bool = false
     public var isLastMessage: Bool = false
+    
+    public var message: WhirlpoolModels.Message?
     
     private override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
       super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -104,42 +105,32 @@ public struct WhirlpoolModels {
     public override func layoutSubviews() {
       super.layoutSubviews()
       
-      timestampLabel?.anchorInCorner(.TopRight, xPad: 8, yPad: 8, width: timestampLabel?.text?.width(24) ?? 0, height: 24)
+      timestampLabel?.anchorInCorner(.TopRight, xPad: 8, yPad: 8, width: 48, height: 48)
+      timestampLabel?.frame.origin.y -= 17
+      
       containerView?.fillSuperview(left: 8, right: 8, top: 4, bottom: 4)
-      textView?.fillSuperview(left: 8, right: 8, top: 4, bottom: 4)
-//      containerView?.layer.shadowColor = UIColor.blackColor().CGColor
-//      containerView?.layer.shadowOpacity = 0.05
-//      containerView?.layer.shadowOffset = CGSizeMake(-2, 3)
-//      containerView?.layer.shadowRadius = 1.0
-//      containerView?.layer.masksToBounds = false
+      
+      textLabel?.frame = CGRectMake(16, 8 + (isConsecutiveMessage ? 0 : 32), frame.width - 76, frame.height)
+      textLabel?.sizeToFit()
       
       usernameLabel?.hidden = isConsecutiveMessage
       userImageView?.hidden = isConsecutiveMessage
-//      timestampLabel?.hidden = !isLastConsecutiveMessage && isConsecutiveMessage && !isLastMessage
       
       if !isLastConsecutiveMessage && isConsecutiveMessage && !isLastMessage {
         
-//        let textViewWidth: CGFloat = (textView?.text.width(frame.height) ?? 0) + 16
-//        
-//        containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: textViewWidth)
-        
-        let textViewWidth: CGFloat = (textView?.text.width(frame.height) ?? 0) + 16
-        let threshold: Bool = textViewWidth + 16 > (timestampLabel?.frame.origin.x ?? 0)
+        let textViewWidth: CGFloat = max((textLabel?.text?.width(frame.height) ?? 0) + 16, 20)
+        let threshold: Bool = textViewWidth > (timestampLabel?.frame.origin.x ?? 0)
         let thresholdWidth: CGFloat = (threshold ? (containerView?.frame.width ?? 0) - (timestampLabel?.frame.width ?? 0) : textViewWidth)
         
         containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: min(textViewWidth, thresholdWidth))
-        
-        textView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: (containerView?.frame.width ?? 0))
         
       } else if isConsecutiveMessage {
         
-        let textViewWidth: CGFloat = (textView?.text.width(frame.height) ?? 0) + 16
-        let threshold: Bool = textViewWidth + 16 > (timestampLabel?.frame.origin.x ?? 0)
+        let textViewWidth: CGFloat = max((textLabel?.text?.width(frame.height) ?? 0) + 16, 20)
+        let threshold: Bool = textViewWidth > (timestampLabel?.frame.origin.x ?? 0)
         let thresholdWidth: CGFloat = (threshold ? (containerView?.frame.width ?? 0) - (timestampLabel?.frame.width ?? 0) : textViewWidth)
         
         containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: min(textViewWidth, thresholdWidth))
-        
-        textView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: (containerView?.frame.width ?? 0))
         
       } else {
         
@@ -148,20 +139,10 @@ public struct WhirlpoolModels {
         
         usernameLabel?.alignAndFillWidth(align: .ToTheRightCentered, relativeTo: userImageView!, padding: 4, height: 24)
         
-        
-//        var textViewWidth: CGFloat = (textView?.text.height(containerView?.frame.width ?? frame.width) ?? 0) + 8
-        let textViewHeight: CGFloat = (textView?.text.height(containerView?.frame.width ?? 0) ?? 0) + 4
-        let textViewWidth: CGFloat = (textView?.text.width(frame.height) ?? 0) + 16
+        let textViewWidth: CGFloat = (textLabel?.frame.width ?? 0) + 12
         let userImageViewWidth: CGFloat = (userImageView?.frame.width ?? 0) + 24
         
         let usernameLabelWidth: CGFloat = (usernameLabel?.text?.width(24) ?? 0)
-        
-        textView?.alignAndFillHeight(
-          align: .UnderMatchingLeft,
-          relativeTo: userImageView!,
-          padding: 4,
-          width: (containerView?.frame.width ?? 0) - (timestampLabel?.frame.width ?? 0)
-        )
         
         containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: max(userImageViewWidth + usernameLabelWidth, textViewWidth))
         
@@ -177,7 +158,7 @@ public struct WhirlpoolModels {
       containerView?.backgroundColor = .whiteColor()
       addSubview(containerView!)
       
-      containerView?.layer.cornerRadius = 2.0
+      containerView?.layer.cornerRadius = 12.0
       containerView?.layer.masksToBounds = true
       
       // MARK: setup username label
@@ -191,6 +172,7 @@ public struct WhirlpoolModels {
       timestampLabel?.font = UIFont.systemFontOfSize(10)
       timestampLabel?.textColor = .lightGrayColor()
       timestampLabel?.textAlignment = .Right
+      timestampLabel?.numberOfLines = 2
       addSubview(timestampLabel!)
 //      containerView?.addSubview(timestampLabel!)
       
@@ -198,16 +180,13 @@ public struct WhirlpoolModels {
       userImageView = UIImageView()
       containerView?.addSubview(userImageView!)
       
-      // MARK: setup text view
-      textView = UITextView()
-      textView?.backgroundColor = .clearColor()
-      textView?.contentInset = UIEdgeInsetsMake(-6.0, -5.0, 0.0, 0.0)
-      textView?.font = UIFont.systemFontOfSize(12)
-      textView?.editable = false
-      textView?.scrollEnabled = false
-      textView?.textAlignment = .Left
-      textView?.layer.masksToBounds = false
-      containerView?.addSubview(textView!)
+      // MARK: setup text label
+      textLabel?.backgroundColor = .clearColor()
+      textLabel?.numberOfLines = 0
+      textLabel?.font = UIFont.systemFontOfSize(12)
+      addSubview(textLabel!)
+      
+      layer.masksToBounds = false
     }
   }
 }

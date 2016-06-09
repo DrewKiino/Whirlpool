@@ -20,7 +20,7 @@ public struct Whirlpool {
   
   public struct Config {
     public static var skip: Int = 0
-    public static var paging: Int = 10
+    public static var paging: Int = 30
   }
   
   public class ChatView: BasicView, UITableViewDelegate, UITableViewDataSource {
@@ -78,21 +78,21 @@ public struct Whirlpool {
         self?.scrollToMostRecent()
       }
       controller.receivedMessageBlock = { [weak self] scroll, invertScroll in
-        self?.simulateReceivedMessage(scroll, invertScroll: invertScroll)
+        self?.simulateReceivedMessage(scroll, invertScroll: invertScroll, animated: false)
         log.info("message received")
       }
       controller.sendPendingBlock = { [weak self] message_id in
         if let message = (self?.model.messages.filter { $0.message_id == message_id })?.first {
           message.pending = true
         }
-        self?.simulateReceivedMessage()
+        self?.simulateReceivedMessage(animated: true)
         log.info(("message sent pending"))
       }
       controller.sendSuccessfulBlock = { [weak self] message_id in
         if let message = (self?.model.messages.filter { $0.message_id == message_id })?.first {
           message.pending = false
         }
-        self?.simulateReceivedMessage()
+        self?.simulateReceivedMessage(animated: false)
         log.info("message sent success")
       }
       controller.didConnectToServer = { [weak self] in
@@ -104,6 +104,9 @@ public struct Whirlpool {
       tableView?.separatorColor = .clearColor()
       tableView?.delegate = self
       tableView?.dataSource = self
+      tableView?.estimatedRowHeight = 36
+      tableView?.rowHeight = UITableViewAutomaticDimension
+      tableView?.layer.masksToBounds = false
       tableView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismissKeyboard"))
       tableView?.registerClass(WhirlpoolModels.MessageCell.self, forCellReuseIdentifier: "MessageCell")
       addSubview(tableView!)
@@ -166,35 +169,39 @@ public struct Whirlpool {
       return self
     }
     
-    public func simulateReceivedMessage(scroll: Bool = true, invertScroll: Bool = false) {
+    public func simulateReceivedMessage(scroll: Bool = true, invertScroll: Bool = false, animated: Bool = true) {
       reload()
       refreshControl?.endRefreshing()
       if invertScroll && scroll {
-        scrollToMostLatest()
+        scrollToMostLatest(animated)
       } else if scroll {
-        scrollToMostRecent()
+        scrollToMostRecent(animated)
       }
     }
     
-    public func scrollToMostLatest() {
+    public func scrollToMostLatest(animated: Bool = true) {
       if model.messages.isEmpty { return }
-      tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+      tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: animated)
     }
     
-    public func scrollToMostRecent() {
+    public func scrollToMostRecent(animated: Bool = true) {
       if model.messages.isEmpty { return }
-      tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: model.messages.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: true)
+      tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: model.messages.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: animated)
     }
     
     // MARK: Tableview methods
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
       if !model.messages.isEmpty {
-        let timestampWidth: CGFloat = (model.messages[indexPath.row].timestamp?.width(24) ?? 0)
-        if let height = model.messages[indexPath.row].text?.height(frame.width - timestampWidth) where isConsecutiveMessage(indexPath) {
-          return max(36, height)
-        } else if let height = model.messages[indexPath.row].text?.height(frame.width - timestampWidth) {
-          return max(68, height + 16)
+        let label = UILabel()
+        label.font = UIFont.systemFontOfSize(12)
+        label.numberOfLines = 0
+        label.text = model.messages[indexPath.row].text
+        let size = label.sizeThatFits(CGSizeMake(frame.width - 76, CGFloat.max))
+        if isConsecutiveMessage(indexPath) {
+          return max(size.height + 16, 36)
+        } else {
+          return max(size.height + 16 + 36, 64)
         }
       }
       return 64
@@ -209,7 +216,25 @@ public struct Whirlpool {
         where !model.messages.isEmpty
       {
         
-        cell.textView?.text = model.messages[indexPath.row].text
+        if let messageDate: NSDate = model.messages[indexPath.row].timestamp?.toDateFromISO8601()
+          where model.messages.count > 1 && indexPath.row + 1 < model.messages.count
+        {
+          
+          cell.timestampLabel?.hidden = false
+          
+          if let futureMessageDate: NSDate = model.messages[indexPath.row + 1].timestamp?.toDateFromISO8601() {
+            if messageDate.isInYesterday() && !futureMessageDate.isInToday() {
+              cell.timestampLabel?.hidden = true
+            }
+            if futureMessageDate - 1.days > messageDate {
+              cell.timestampLabel?.hidden = false
+            }
+          }
+        }
+        
+        cell.message = model.messages[indexPath.row]
+        
+        cell.textLabel?.text = model.messages[indexPath.row].text
         cell.usernameLabel?.text = model.messages[indexPath.row].username
         cell.userImageUrl = model.messages[indexPath.row].userImageUrl
         cell.timestampLabel?.text = model.messages[indexPath.row].timestamp?.toDateFromISO8601()?.toSimpleString()
@@ -500,7 +525,7 @@ extension NSDate {
       if isInToday() {
         return dateString.stringByReplacingOccurrencesOfString("Today, ", withString: "")
       } else {
-        return dateString
+        return dateString.stringByReplacingOccurrencesOfString(", ", withString: " ")
       }
     }
     return nil
