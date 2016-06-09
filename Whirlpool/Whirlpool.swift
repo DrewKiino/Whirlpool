@@ -222,7 +222,8 @@ public struct Whirlpool {
         if isConsecutiveMessage(indexPath) {
           return height < 36 ? height - 1 : height + 3
         } else {
-          return max(height + 33, 64)
+          return max(height + (height > 36 ? 36 : 33), 64)
+//          return max(height + (indexPath.row == 0 && height > 36 ? 36 : 33), 64)
         }
       }
       return 64
