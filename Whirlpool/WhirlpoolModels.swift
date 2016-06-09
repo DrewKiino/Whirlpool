@@ -104,7 +104,9 @@ public struct WhirlpoolModels {
     public override func layoutSubviews() {
       super.layoutSubviews()
       
+      timestampLabel?.anchorInCorner(.TopRight, xPad: 8, yPad: 8, width: timestampLabel?.text?.width(24) ?? 0, height: 24)
       containerView?.fillSuperview(left: 8, right: 8, top: 4, bottom: 4)
+      textView?.fillSuperview(left: 8, right: 8, top: 4, bottom: 4)
 //      containerView?.layer.shadowColor = UIColor.blackColor().CGColor
 //      containerView?.layer.shadowOpacity = 0.05
 //      containerView?.layer.shadowOffset = CGSizeMake(-2, 3)
@@ -113,32 +115,45 @@ public struct WhirlpoolModels {
       
       usernameLabel?.hidden = isConsecutiveMessage
       userImageView?.hidden = isConsecutiveMessage
-      timestampLabel?.hidden = !isLastConsecutiveMessage && isConsecutiveMessage && !isLastMessage
+//      timestampLabel?.hidden = !isLastConsecutiveMessage && isConsecutiveMessage && !isLastMessage
       
       if !isLastConsecutiveMessage && isConsecutiveMessage && !isLastMessage {
         
-        textView?.fillSuperview(left: 8, right: 8, top: 8, bottom: 8)
+        let textViewWidth: CGFloat = (textView?.text.width(frame.height) ?? 0) + 16
+        
+        containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: textViewWidth)
         
       } else if isConsecutiveMessage {
         
-        timestampLabel?.anchorInCorner(.TopRight, xPad: 8, yPad: 8, width: timestampLabel?.text?.width(24) ?? 0, height: 24)
-        textView?.alignAndFill(align: .ToTheLeftMatchingTop, relativeTo: timestampLabel!, padding: 8)
+        
+        let textViewWidth: CGFloat = (textView?.text.width(frame.height) ?? 0) + 26
+        let threshold: Bool = textViewWidth + 16 > (timestampLabel?.frame.origin.x ?? 0)
+        let thresholdWidth: CGFloat = (threshold ? (timestampLabel?.frame.width ?? 0) + 86 : 0)
+        
+        containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: textViewWidth - thresholdWidth)
+        
+        textView?.fillSuperview(left: 8, right: 8, top: 4, bottom: 4)
         
       } else {
         
         userImageView?.anchorInCorner(.TopLeft, xPad: 8, yPad: 8, width: 24, height: 24)
         userImageView?.backgroundColor = .clearColor()
         
-        timestampLabel?.anchorInCorner(.TopRight, xPad: 8, yPad: 8, width: timestampLabel?.text?.width(24) ?? 0, height: 24)
+        usernameLabel?.alignAndFillWidth(align: .ToTheRightCentered, relativeTo: userImageView!, padding: 4, height: 24)
         
-        usernameLabel?.alignBetweenHorizontal(align: .ToTheRightCentered, primaryView: userImageView!, secondaryView: timestampLabel!, padding: 8, height: 24)
+        var textViewWidth: CGFloat = (textView?.text.height(containerView?.frame.width ?? frame.width) ?? 0) + 8
         
         textView?.alignAndFillWidth(
           align: .UnderMatchingLeft,
           relativeTo: userImageView!,
           padding: 4,
-          height: (textView?.text.height(containerView?.frame.width ?? frame.width) ?? 0) + 8
+          height: textViewWidth
         )
+        
+        let usernameLabelWidth: CGFloat = (usernameLabel?.text?.width(24) ?? 0) + 10
+        textViewWidth = (textView?.text.width(frame.height) ?? 0) + 16
+        
+        containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: textViewWidth + usernameLabelWidth)
         
         userImageView?.imageFromUrl(userImageUrl, maskWithEllipse: true)
       }
@@ -166,7 +181,8 @@ public struct WhirlpoolModels {
       timestampLabel?.font = UIFont.systemFontOfSize(10)
       timestampLabel?.textColor = .lightGrayColor()
       timestampLabel?.textAlignment = .Right
-      containerView?.addSubview(timestampLabel!)
+      addSubview(timestampLabel!)
+//      containerView?.addSubview(timestampLabel!)
       
       // MARK: setup user image view
       userImageView = UIImageView()

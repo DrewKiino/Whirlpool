@@ -95,6 +95,9 @@ public struct Whirlpool {
         self?.simulateReceivedMessage()
         log.info("message sent success")
       }
+      controller.didConnectToServer = { [weak self] in
+        self?.inputContainer?.enableSendButton()
+      }
       
       // Setup table view
       tableView = UITableView()
@@ -110,6 +113,7 @@ public struct Whirlpool {
       tableView?.addSubview(refreshControl!)
       
       inputContainer = InputContainer()
+      inputContainer?.disableSendButton()
       inputContainer?.hidden = true
       inputContainer?.backgroundColor = .whiteColor()
       inputContainer?.textFieldDidBeginEditingBlock = { [weak self] in
@@ -133,7 +137,7 @@ public struct Whirlpool {
       super.layoutSubviews()
       
       
-      fillSuperview(left: 0, right: 0, top: 0, bottom: 0)
+      fillSuperview(left: 0, right: 0, top: 4, bottom: 0)
       
       inputContainer?.hidden = false
       inputContainer?.anchorToEdge(.Bottom, padding: keyboardHeight, width: frame.width, height: 48)
@@ -187,7 +191,7 @@ public struct Whirlpool {
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
       if !model.messages.isEmpty {
         if let height = model.messages[indexPath.row].text?.height(frame.width - 16) {
-          return isConsecutiveMessage(indexPath) ? max(48, height + 28) : max(64, height + 28)
+          return isConsecutiveMessage(indexPath) ? max(36, height + 24) : max(64, height + 20)
         }
       }
       return 64
@@ -253,6 +257,7 @@ public struct Whirlpool {
       private var receivedMessageBlock: ((scroll: Bool, invertScroll: Bool) -> Void)?
       private var sendSuccessfulBlock: ((message_id: String?) -> Void)?
       private var sendPendingBlock: ((message_id: String?) -> Void)?
+      private var didConnectToServer: (() -> Void)?
       
       public override init() {
         super.init()
@@ -299,12 +304,14 @@ public struct Whirlpool {
         
         socket?.onConnect("Whirlpool.Controller") { [weak self] in
           self?.model.messages.removeAll(keepCapacity: false)
-          self?.getMessages()
-          self?.model.session_id = self?.socket?.session_id
-          self?.model.pendingMessages.forEach { [weak self] message in
-            self?.socket?.emit("chat.message", objects: message.toJSON())
+          self?.getMessages() { [weak self] in
+            self?.model.session_id = self?.socket?.session_id
+            self?.model.pendingMessages.forEach { [weak self] message in
+              self?.socket?.emit("chat.message", objects: message.toJSON(), forceConnection: false)
+            }
+            self?.model.pendingMessages.removeAll(keepCapacity: false)
+            self?.didConnectToServer?()
           }
-          self?.model.pendingMessages.removeAll(keepCapacity: false)
         }
         
         socket?.connect()
@@ -318,6 +325,7 @@ public struct Whirlpool {
         if socket?.isConnected() == true {
           socket?.disconnect()
         }
+        socket = nil
       }
       
       public func keyboardDidShow(notification: NSNotification) {
@@ -344,7 +352,7 @@ public struct Whirlpool {
         sendPendingBlock?(message_id: message.message_id)
       }
       
-      public func getMessages(skip: Int = Whirlpool.Config.skip, paging: Int = Whirlpool.Config.paging, invertScroll: Bool = false) {
+      public func getMessages(skip: Int = Whirlpool.Config.skip, paging: Int = Whirlpool.Config.paging, invertScroll: Bool = false, completionHandler: (() -> Void)? = nil) {
         let room: String = model.room ?? ""
         App.GET("/chat/getMessages?room=\(room)&skip=\(skip)&paging=\(paging)") { [weak self] json, error in
           if let array = json?.array {
@@ -362,6 +370,7 @@ public struct Whirlpool {
             }
             self?.receivedMessageBlock?(scroll: true, invertScroll: invertScroll)
           }
+          completionHandler?()
         }
       }
     }
@@ -424,6 +433,18 @@ public struct Whirlpool {
         if inputTextField?.text?.isEmpty == true { return }
         sendButtonOnPressBlock?(sender: sender, text: inputTextField?.text)
         inputTextField?.text = nil
+      }
+      
+      public func disableSendButton() {
+        sendButton?.userInteractionEnabled = false
+        sendButton?.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), forState: .Highlighted)
+        sendButton?.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 0.5), forState: .Normal)
+      }
+      
+      public func enableSendButton() {
+        sendButton?.userInteractionEnabled = true
+        sendButton?.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), forState: .Normal)
+        sendButton?.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 0.5), forState: .Highlighted)
       }
       
       // MARK: textfield methods
