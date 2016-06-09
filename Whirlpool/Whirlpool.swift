@@ -190,8 +190,11 @@ public struct Whirlpool {
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
       if !model.messages.isEmpty {
-        if let height = model.messages[indexPath.row].text?.height(frame.width - 16) {
-          return isConsecutiveMessage(indexPath) ? max(36, height + 24) : max(64, height + 20)
+        let timestampWidth: CGFloat = (model.messages[indexPath.row].timestamp?.width(24) ?? 0)
+        if let height = model.messages[indexPath.row].text?.height(frame.width - timestampWidth) where isConsecutiveMessage(indexPath) {
+          return max(36, height)
+        } else if let height = model.messages[indexPath.row].text?.height(frame.width - timestampWidth) {
+          return max(68, height + 16)
         }
       }
       return 64
@@ -287,7 +290,7 @@ public struct Whirlpool {
             room: json["room"].string
           )
           self?.model.messages.append(message)
-          self?.receivedMessageBlock?(scroll: false, invertScroll: false)
+          self?.receivedMessageBlock?(scroll: true, invertScroll: false)
         }
         
         socket?.on("chat.message.response") { [weak self] json in

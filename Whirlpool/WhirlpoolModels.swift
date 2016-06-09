@@ -119,20 +119,27 @@ public struct WhirlpoolModels {
       
       if !isLastConsecutiveMessage && isConsecutiveMessage && !isLastMessage {
         
-        let textViewWidth: CGFloat = (textView?.text.width(frame.height) ?? 0) + 16
+//        let textViewWidth: CGFloat = (textView?.text.width(frame.height) ?? 0) + 16
+//        
+//        containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: textViewWidth)
         
-        containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: textViewWidth)
+        let textViewWidth: CGFloat = (textView?.text.width(frame.height) ?? 0) + 16
+        let threshold: Bool = textViewWidth + 16 > (timestampLabel?.frame.origin.x ?? 0)
+        let thresholdWidth: CGFloat = (threshold ? (containerView?.frame.width ?? 0) - (timestampLabel?.frame.width ?? 0) : textViewWidth)
+        
+        containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: min(textViewWidth, thresholdWidth))
+        
+        textView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: (containerView?.frame.width ?? 0))
         
       } else if isConsecutiveMessage {
         
-        
-        let textViewWidth: CGFloat = (textView?.text.width(frame.height) ?? 0) + 26
+        let textViewWidth: CGFloat = (textView?.text.width(frame.height) ?? 0) + 16
         let threshold: Bool = textViewWidth + 16 > (timestampLabel?.frame.origin.x ?? 0)
-        let thresholdWidth: CGFloat = (threshold ? (timestampLabel?.frame.width ?? 0) + 86 : 0)
+        let thresholdWidth: CGFloat = (threshold ? (containerView?.frame.width ?? 0) - (timestampLabel?.frame.width ?? 0) : textViewWidth)
         
-        containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: textViewWidth - thresholdWidth)
+        containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: min(textViewWidth, thresholdWidth))
         
-        textView?.fillSuperview(left: 8, right: 8, top: 4, bottom: 4)
+        textView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: (containerView?.frame.width ?? 0))
         
       } else {
         
@@ -141,19 +148,22 @@ public struct WhirlpoolModels {
         
         usernameLabel?.alignAndFillWidth(align: .ToTheRightCentered, relativeTo: userImageView!, padding: 4, height: 24)
         
-        var textViewWidth: CGFloat = (textView?.text.height(containerView?.frame.width ?? frame.width) ?? 0) + 8
         
-        textView?.alignAndFillWidth(
+//        var textViewWidth: CGFloat = (textView?.text.height(containerView?.frame.width ?? frame.width) ?? 0) + 8
+        let textViewHeight: CGFloat = (textView?.text.height(containerView?.frame.width ?? 0) ?? 0) + 4
+        let textViewWidth: CGFloat = (textView?.text.width(frame.height) ?? 0) + 16
+        let userImageViewWidth: CGFloat = (userImageView?.frame.width ?? 0) + 24
+        
+        let usernameLabelWidth: CGFloat = (usernameLabel?.text?.width(24) ?? 0)
+        
+        textView?.alignAndFillHeight(
           align: .UnderMatchingLeft,
           relativeTo: userImageView!,
           padding: 4,
-          height: textViewWidth
+          width: (containerView?.frame.width ?? 0) - (timestampLabel?.frame.width ?? 0)
         )
         
-        let usernameLabelWidth: CGFloat = (usernameLabel?.text?.width(24) ?? 0) + 10
-        textViewWidth = (textView?.text.width(frame.height) ?? 0) + 16
-        
-        containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: textViewWidth + usernameLabelWidth)
+        containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: max(userImageViewWidth + usernameLabelWidth, textViewWidth))
         
         userImageView?.imageFromUrl(userImageUrl, maskWithEllipse: true)
       }
@@ -191,7 +201,7 @@ public struct WhirlpoolModels {
       // MARK: setup text view
       textView = UITextView()
       textView?.backgroundColor = .clearColor()
-      textView?.contentInset = UIEdgeInsetsMake(-8.0, -5.0, 0.0, 0.0)
+      textView?.contentInset = UIEdgeInsetsMake(-6.0, -5.0, 0.0, 0.0)
       textView?.font = UIFont.systemFontOfSize(12)
       textView?.editable = false
       textView?.scrollEnabled = false

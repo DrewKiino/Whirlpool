@@ -173,7 +173,7 @@ extension String {
       ],
       context: nil
       ).height
-    return (height * 1.12) + (self.width(height) > width - 128 ? 24 : 0)
+    return (height + 20)
     // WHY add a modifier? because at large texts, textview height will always return the height minus some lines
     // for some reason, so we compensate by adding the height of line which justly estimates around this number
   }
