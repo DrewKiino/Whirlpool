@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'BAB4A151629261553DCB60B169E81D5D'
-               BlueprintName = 'UIColor_Hex_Swift'
+               BlueprintIdentifier = '25DADE6635EBE92A154BA42717F9CFDD'
+               BlueprintName = 'SwiftyTimer'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'UIColor_Hex_Swift.framework'>
+               BuildableName = 'SwiftyTimer.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

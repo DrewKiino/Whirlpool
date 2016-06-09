@@ -37,6 +37,7 @@ public struct WhirlpoolModels {
     public var room: String?
     
     public var pending: Bool = false
+    public var hidden: Bool = false
     
     public init(
       text: String?,
@@ -116,17 +117,9 @@ public struct WhirlpoolModels {
       usernameLabel?.hidden = isConsecutiveMessage
       userImageView?.hidden = isConsecutiveMessage
       
-      if !isLastConsecutiveMessage && isConsecutiveMessage && !isLastMessage {
+      if isConsecutiveMessage {
         
-        let textViewWidth: CGFloat = max((textLabel?.text?.width(frame.height) ?? 0) + 16, 20)
-        let threshold: Bool = textViewWidth > (timestampLabel?.frame.origin.x ?? 0)
-        let thresholdWidth: CGFloat = (threshold ? (containerView?.frame.width ?? 0) - (timestampLabel?.frame.width ?? 0) : textViewWidth)
-        
-        containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: min(textViewWidth, thresholdWidth))
-        
-      } else if isConsecutiveMessage {
-        
-        let textViewWidth: CGFloat = max((textLabel?.text?.width(frame.height) ?? 0) + 16, 20)
+        let textViewWidth: CGFloat = max((textLabel?.text?.width(frame.height - 36, font: Whirlpool.Config.font) ?? 0) + 16, 20)
         let threshold: Bool = textViewWidth > (timestampLabel?.frame.origin.x ?? 0)
         let thresholdWidth: CGFloat = (threshold ? (containerView?.frame.width ?? 0) - (timestampLabel?.frame.width ?? 0) : textViewWidth)
         
@@ -139,10 +132,10 @@ public struct WhirlpoolModels {
         
         usernameLabel?.alignAndFillWidth(align: .ToTheRightCentered, relativeTo: userImageView!, padding: 4, height: 24)
         
-        let textViewWidth: CGFloat = (textLabel?.frame.width ?? 0) + 12
+        let textViewWidth: CGFloat = max((textLabel?.text?.width(frame.height - 36, font: Whirlpool.Config.font) ?? 0) + 16, 20)
         let userImageViewWidth: CGFloat = (userImageView?.frame.width ?? 0) + 24
         
-        let usernameLabelWidth: CGFloat = (usernameLabel?.text?.width(24) ?? 0)
+        let usernameLabelWidth: CGFloat = (usernameLabel?.text?.width(24, font: Whirlpool.Config.font) ?? 0)
         
         containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: max(userImageViewWidth + usernameLabelWidth, textViewWidth))
         
@@ -163,7 +156,7 @@ public struct WhirlpoolModels {
       
       // MARK: setup username label
       usernameLabel = UILabel()
-      usernameLabel?.font = UIFont.boldSystemFontOfSize(12)
+      usernameLabel?.font = Whirlpool.Config.font
       usernameLabel?.textAlignment = .Left
       containerView?.addSubview(usernameLabel!)
       
@@ -181,12 +174,13 @@ public struct WhirlpoolModels {
       containerView?.addSubview(userImageView!)
       
       // MARK: setup text label
-      textLabel?.backgroundColor = .clearColor()
       textLabel?.numberOfLines = 0
-      textLabel?.font = UIFont.systemFontOfSize(12)
+      textLabel?.font = Whirlpool.Config.font
       addSubview(textLabel!)
       
       layer.masksToBounds = false
+      
+      sendSubviewToBack(containerView!)
     }
   }
 }

@@ -20,6 +20,9 @@ pod 'Neon'
 pod 'SwiftDate'
 pod 'UIColor_Hex_Swift'
 
+# util libs
+pod 'SwiftyTimer'
+
 end
 
 

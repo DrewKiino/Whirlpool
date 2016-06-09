@@ -22,6 +22,7 @@ PODS:
     - SwiftDate
   - SwiftDate (3.0.8)
   - SwiftyJSON (2.3.2)
+  - SwiftyTimer (1.4.0)
   - Tide (0.1.7):
     - AsyncSwift
     - SDWebImage
@@ -33,6 +34,7 @@ DEPENDENCIES:
   - Pacific
   - Storm
   - SwiftDate
+  - SwiftyTimer
   - Tide
   - UIColor_Hex_Swift
 
@@ -48,9 +50,10 @@ SPEC CHECKSUMS:
   Storm: 2db726b2fbb967bc6f4a4bca76c7dfcf38cb911f
   SwiftDate: 971f8b9394f664f2226b9c3ab64e801a7291c612
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  SwiftyTimer: db4458cfaf67fc71e16ad6e4637c60b86f76a649
   Tide: 7ee8f9f5826b6605458d5f4622499b3e80bdfb12
   UIColor_Hex_Swift: e91dc51f6bf252ec7bf74c8704ceedeeb7640c1c
 
-PODFILE CHECKSUM: ae97f9a81608d503d59996af106ab88d20a4b43d
+PODFILE CHECKSUM: a10478f90a211cc40f63150ae7067f8f80853674
 
 COCOAPODS: 1.0.1

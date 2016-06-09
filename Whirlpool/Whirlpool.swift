@@ -15,12 +15,14 @@ import Storm
 import SwiftDate
 import Async
 import UIColor_Hex_Swift
+import SwiftyTimer
 
 public struct Whirlpool {
   
   public struct Config {
     public static var skip: Int = 0
     public static var paging: Int = 30
+    public static var font: UIFont = UIFont.systemFontOfSize(14)
   }
   
   public class ChatView: BasicView, UITableViewDelegate, UITableViewDataSource {
@@ -84,16 +86,27 @@ public struct Whirlpool {
       controller.sendPendingBlock = { [weak self] message_id in
         if let message = (self?.model.messages.filter { $0.message_id == message_id })?.first {
           message.pending = true
+          message.hidden = true
         }
         self?.simulateReceivedMessage(animated: true)
         log.info(("message sent pending"))
+        NSTimer.after(10.0) { [weak self] in
+          if let message = (self?.model.messages.filter { $0.message_id == message_id })?.first where message.pending == true {
+            message.hidden = false
+            self?.simulateReceivedMessage(animated: false)
+            log.warning("message still pending")
+          }
+        }
       }
       controller.sendSuccessfulBlock = { [weak self] message_id in
-        if let message = (self?.model.messages.filter { $0.message_id == message_id })?.first {
-          message.pending = false
+        NSTimer.after(0.2) { [weak self] in
+          if let message = (self?.model.messages.filter { $0.message_id == message_id })?.first {
+            message.pending = false
+            message.hidden = false
+          }
+          self?.simulateReceivedMessage(animated: false)
+          log.info("message sent success")
         }
-        self?.simulateReceivedMessage(animated: false)
-        log.info("message sent success")
       }
       controller.didConnectToServer = { [weak self] in
         self?.inputContainer?.enableSendButton()
@@ -169,39 +182,47 @@ public struct Whirlpool {
       return self
     }
     
-    public func simulateReceivedMessage(scroll: Bool = true, invertScroll: Bool = false, animated: Bool = true) {
+    public func simulateReceivedMessage(scroll: Bool = true, invertScroll: Bool = false, animated: Bool = true, delay: Double = 0.0) {
       reload()
       refreshControl?.endRefreshing()
       if invertScroll && scroll {
-        scrollToMostLatest(animated)
+        scrollToMostLatest(animated, delay: delay)
       } else if scroll {
-        scrollToMostRecent(animated)
+        scrollToMostRecent(animated, delay: delay)
       }
     }
     
-    public func scrollToMostLatest(animated: Bool = true) {
+    public func scrollToMostLatest(animated: Bool = true, delay: Double = 0.0) {
       if model.messages.isEmpty { return }
-      tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: animated)
+      if delay > 0 {
+        NSTimer.after(delay) { [weak self] in
+          self?.tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: animated)
+        }
+      } else {
+        tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: animated)
+      }
     }
     
-    public func scrollToMostRecent(animated: Bool = true) {
+    public func scrollToMostRecent(animated: Bool = true, delay: Double = 0.0) {
       if model.messages.isEmpty { return }
-      tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: model.messages.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: animated)
+      if delay > 0 {
+        NSTimer.after(delay) { [weak self] in
+          self?.tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: (self?.model.messages.count ?? 1) - 1, inSection: 0), atScrollPosition: .Bottom, animated: animated)
+        }
+      } else {
+        tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: model.messages.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: animated)
+      }
     }
     
     // MARK: Tableview methods
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
       if !model.messages.isEmpty {
-        let label = UILabel()
-        label.font = UIFont.systemFontOfSize(12)
-        label.numberOfLines = 0
-        label.text = model.messages[indexPath.row].text
-        let size = label.sizeThatFits(CGSizeMake(frame.width - 76, CGFloat.max))
+        let height: CGFloat = model.messages[indexPath.row].text?.height(frame.width - 100) ?? 0
         if isConsecutiveMessage(indexPath) {
-          return max(size.height + 16, 36)
+          return height < 36 ? height - 1 : height + 3
         } else {
-          return max(size.height + 16 + 36, 64)
+          return max(height + 33, 64)
         }
       }
       return 64
@@ -216,22 +237,6 @@ public struct Whirlpool {
         where !model.messages.isEmpty
       {
         
-        if let messageDate: NSDate = model.messages[indexPath.row].timestamp?.toDateFromISO8601()
-          where model.messages.count > 1 && indexPath.row + 1 < model.messages.count
-        {
-          
-          cell.timestampLabel?.hidden = false
-          
-          if let futureMessageDate: NSDate = model.messages[indexPath.row + 1].timestamp?.toDateFromISO8601() {
-            if messageDate.isInYesterday() && !futureMessageDate.isInToday() {
-              cell.timestampLabel?.hidden = true
-            }
-            if futureMessageDate - 1.days > messageDate {
-              cell.timestampLabel?.hidden = false
-            }
-          }
-        }
-        
         cell.message = model.messages[indexPath.row]
         
         cell.textLabel?.text = model.messages[indexPath.row].text
@@ -239,18 +244,47 @@ public struct Whirlpool {
         cell.userImageUrl = model.messages[indexPath.row].userImageUrl
         cell.timestampLabel?.text = model.messages[indexPath.row].timestamp?.toDateFromISO8601()?.toSimpleString()
         
-        cell.containerView?.backgroundColor = model.messages[indexPath.row].username == model.username
-          ? UIColor(red: 0/255, green: 255/255, blue: 127/255, alpha: 0.1)
-          : UIColor(red: 0/255, green: 191/255, blue: 255/255, alpha: 0.1)
-//        cell.containerView?.backgroundColor = model.messages[indexPath.row].pending ? UIColor(red: 252/255, green: 252/255, blue: 252/255, alpha: 1.0) : .whiteColor()
+        cell.containerView?.backgroundColor = getBubbleColor(indexPath)
         
         cell.isConsecutiveMessage = isConsecutiveMessage(indexPath)
         cell.isLastConsecutiveMessage = isLastConsecutiveMessage(indexPath)
         cell.isLastMessage = model.messages.count - 1 == indexPath.row
         
+        updateTimestampUI(cell, indexPath: indexPath)
+        
+        cell.hidden = cell.message?.hidden == true
+        
         return cell
       }
       return UITableViewCell()
+    }
+    
+    private func getBubbleColor(indexPath: NSIndexPath) -> UIColor {
+      return model.messages[indexPath.row].username == model.username
+        ? UIColor(red: 0/255, green: 255/255, blue: 127/255, alpha: 0.1)
+        : UIColor(red: 0/255, green: 191/255, blue: 255/255, alpha: 0.1)
+    }
+    
+    private func updateTimestampUI(cell: WhirlpoolModels.MessageCell, indexPath: NSIndexPath) {
+      
+      cell.timestampLabel?.hidden = false
+      
+      if let messageDate: NSDate = model.messages[indexPath.row].timestamp?.toDateFromISO8601()
+        where model.messages.count > 1 && indexPath.row + 1 < model.messages.count
+      {
+        if let futureMessageDate: NSDate = model.messages[indexPath.row + 1].timestamp?.toDateFromISO8601() {
+          cell.timestampLabel?.hidden = true
+          if futureMessageDate - 1.minutes > messageDate {
+            cell.timestampLabel?.hidden = false
+            cell.timestampLabel?.text = model.messages[indexPath.row].timestamp?.toDateFromISO8601()?
+              .toSimpleString(!messageDate.isInToday() ? .ShortStyle : .NoStyle, timeStyle: .ShortStyle)
+          }
+        }
+      }
+      
+      if indexPath.row == 0 {
+        cell.timestampLabel?.hidden = false
+      }
     }
     
     private func isConsecutiveMessage(indexPath: NSIndexPath) -> Bool {
@@ -433,7 +467,7 @@ public struct Whirlpool {
         
         inputTextField = UITextField()
         inputTextField?.delegate = self
-        inputTextField?.font = UIFont.systemFontOfSize(12)
+        inputTextField?.font = Whirlpool.Config.font
         inputTextField?.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0)
         inputTextField?.layer.borderColor = UIColor(white: 0, alpha: 0.5).CGColor
         inputTextField?.layer.borderWidth = 0.5
@@ -513,12 +547,12 @@ public class BasicView: UIView {
 
 extension NSDate {
   
-  public func toSimpleString() -> String? {
+  public func toSimpleString(dateStyle: NSDateFormatterStyle = .ShortStyle, timeStyle: NSDateFormatterStyle = .ShortStyle) -> String? {
     if self >= NSDate() - 60.seconds {
       return "Just Now"
     } else if let dateString = toString(
-      dateStyle: .ShortStyle,
-      timeStyle: .ShortStyle,
+      dateStyle: dateStyle,
+      timeStyle: timeStyle,
       inRegion: DateRegion(),
       relative: true
     ) {
