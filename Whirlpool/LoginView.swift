@@ -44,9 +44,9 @@ public class LoginView: UIViewController, UITextFieldDelegate {
     chatView.view.backgroundColor = .whiteColor()
     chatView.view.addSubview(Whirlpool.ChatView(
       user:
-        WhirlpoolModels.User(username: "Rob", userImageUrl: "http://zblogged.com/wp-content/uploads/2015/11/17.jpg"),
+//        WhirlpoolModels.User(username: "Rob", userImageUrl: "http://zblogged.com/wp-content/uploads/2015/11/17.jpg"),
 //        WhirlpoolModels.User(username: "Andrew", userImageUrl: "http://totemv.com/drewkiino.github.io/img/selfie-car.jpeg"),
-//        WhirlpoolModels.User(username: "Macie", userImageUrl: "https://assets.entrepreneur.com/content/16x9/822/20150406145944-dos-donts-taking-perfect-linkedin-profile-picture-selfie-mobile-camera-2.jpeg"),
+        WhirlpoolModels.User(username: "Macie", userImageUrl: "https://assets.entrepreneur.com/content/16x9/822/20150406145944-dos-donts-taking-perfect-linkedin-profile-picture-selfie-mobile-camera-2.jpeg"),
       room: input.text?.isEmpty == true ? "CoolRoom" : input.text ?? "CoolRoom"
     ))
     
