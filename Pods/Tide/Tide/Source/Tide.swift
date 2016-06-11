@@ -14,6 +14,12 @@ import Storm
 
 public class Tide {
   
+  public enum Mask {
+    case Rounded
+    case Squared
+    case None
+  }
+  
   private struct Singleton {
     private static var queue1: Async?
     private static var queue2: Async?
@@ -77,31 +83,73 @@ public class Tide {
       image: UIImage?,
       borderWidth: CGFloat = 0,
       borderColor: UIColor = UIColor.whiteColor()
-    ) -> UIImage? {
-      
-      guard let image = image else { return nil }
-      
-      let imgRef = Util.CGImageWithCorrectOrientation(image)
-      let size = CGSize(width: CGFloat(CGImageGetWidth(imgRef)) / image.scale, height: CGFloat(CGImageGetHeight(imgRef)) / image.scale)
-      
-      return Util.drawImageWithClosure(size: size) { (size: CGSize, context: CGContext) -> () in
+      ) -> UIImage? {
         
-        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        guard let image = image else { return nil }
         
-        CGContextAddEllipseInRect(context, rect)
-        CGContextClip(context)
-        image.drawInRect(rect)
+        let imgRef = Util.CGImageWithCorrectOrientation(image)
+        let size = CGSize(width: CGFloat(CGImageGetWidth(imgRef)) / image.scale, height: CGFloat(CGImageGetHeight(imgRef)) / image.scale)
         
-        if (borderWidth > 0) {
-          CGContextSetStrokeColorWithColor(context, borderColor.CGColor);
-          CGContextSetLineWidth(context, borderWidth);
-          CGContextAddEllipseInRect(context, CGRect(x: borderWidth / 2,
-            y: borderWidth / 2,
-            width: size.width - borderWidth,
-            height: size.height - borderWidth));
-          CGContextStrokePath(context);
+        return Util.drawImageWithClosure(size: size) { (size: CGSize, context: CGContext) -> () in
+          
+          let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+          
+          CGContextAddEllipseInRect(context, rect)
+          CGContextClip(context)
+          image.drawInRect(rect)
+          
+          if (borderWidth > 0) {
+            CGContextSetStrokeColorWithColor(context, borderColor.CGColor);
+            CGContextSetLineWidth(context, borderWidth);
+            CGContextAddEllipseInRect(context, CGRect(x: borderWidth / 2,
+              y: borderWidth / 2,
+              width: size.width - borderWidth,
+              height: size.height - borderWidth));
+            CGContextStrokePath(context);
+          }
         }
-      }
+    }
+    
+    /**
+     Mask the given image with a rounded rectangle border.
+     Allows specifying an additional border to draw on the clipped image.
+     
+     - parameter image:        Image to apply the mask to
+     - parameter cornerRadius: Radius of the rounded rect corners
+     - parameter borderWidth:  Optional width of border to apply - default 0
+     - parameter borderColor:  Optional color of the border - default White
+     
+     - returns: Masked image
+     */
+    static func maskImageWithRoundedRect(
+      image: UIImage?,
+      cornerRadius: CGFloat,
+      borderWidth: CGFloat = 0,
+      borderColor: UIColor = UIColor.whiteColor()
+      ) -> UIImage? {
+        guard let image = image else { return nil }
+        let imgRef = Util.CGImageWithCorrectOrientation(image)
+        let size = CGSize(width: CGFloat(CGImageGetWidth(imgRef)) / image.scale, height: CGFloat(CGImageGetHeight(imgRef)) / image.scale)
+        
+        return Tide.Util.drawImageWithClosure(size: size) { (size: CGSize, context: CGContext) -> () in
+          
+          let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+          
+          UIBezierPath(roundedRect:rect, cornerRadius: cornerRadius).addClip()
+          image.drawInRect(rect)
+          
+          if (borderWidth > 0) {
+            CGContextSetStrokeColorWithColor(context, borderColor.CGColor);
+            CGContextSetLineWidth(context, borderWidth);
+            
+            let borderRect = CGRect(x: 0, y: 0,
+              width: size.width, height: size.height)
+            
+            let borderPath = UIBezierPath(roundedRect: borderRect, cornerRadius: cornerRadius)
+            borderPath.lineWidth = borderWidth * 2
+            borderPath.stroke()
+          }
+        }
     }
     
     /**
@@ -236,7 +284,7 @@ public class Tide {
       _closure = nil
       return _image
     }
-  
+    
     private static func utility(execute: dispatch_block_t) {
       if Tide.Singleton.queue1 == nil {
         Tide.Singleton.queue1 = Async.utility(block: execute)
@@ -272,27 +320,90 @@ extension UIImageView {
     return self
   }
   
-  public func rounded(image: UIImage? = nil, completionHandler: ((image: UIImage?) -> Void)? = nil) -> Self {
-    Async.utility { [weak self] in
-      var imageMod: UIImage? = Tide.Util.maskImageWithEllipse(image != nil ? image : self?.image)
-      Async.main { [weak self] in
-        if let completionHandler = completionHandler {
-          completionHandler(image: imageMod)
-        } else {
-          self?.image = imageMod
+  public func rounded(
+    image: UIImage? = nil,
+    borderWidth: CGFloat = 0,
+    borderColor: UIColor = UIColor.whiteColor(),
+    completionHandler: ((image: UIImage?) -> Void)? = nil
+    ) -> Self {
+      Async.utility { [weak self] in
+        var imageMod: UIImage? = Tide.Util.maskImageWithEllipse(
+          image != nil ? image : self?.image,
+          borderWidth: borderWidth,
+          borderColor: borderColor
+        )
+        Async.main { [weak self] in
+          if let completionHandler = completionHandler {
+            completionHandler(image: imageMod)
+          } else {
+            self?.image = imageMod
+          }
+          imageMod = nil
         }
-        imageMod = nil
       }
-    }
-    return self
+      return self
   }
+  
+  public func squared(
+    image: UIImage? = nil,
+    cornerRadius: CGFloat,
+    borderWidth: CGFloat = 0,
+    borderColor: UIColor = UIColor.whiteColor(),
+    completionHandler: ((image: UIImage?) -> Void)? = nil
+    ) -> Self {
+      Async.utility { [weak self] in
+        var imageMod: UIImage? = Tide.Util.maskImageWithRoundedRect(
+          image != nil ? image : self?.image,
+          cornerRadius: cornerRadius,
+          borderWidth: borderWidth,
+          borderColor: borderColor
+        )
+        Async.main { [weak self] in
+          if let completionHandler = completionHandler {
+            completionHandler(image: imageMod)
+          } else {
+            self?.image = imageMod
+          }
+          imageMod = nil
+        }
+      }
+      return self
+  }
+  
   
   public func imageFromUrl (
     url: String?,
     placeholder: UIImage? = nil,
-    maskWithEllipse: Bool = false,
+    mask: Tide.Mask = .None,
+    cornerRadius: CGFloat = 0,
+    borderWidth: CGFloat = 0,
+    borderColor: UIColor = UIColor.whiteColor(),
+    animated: Bool = false,
     block: ((image: UIImage?) -> Void)? = nil)
   {
+    
+    func fitClip(image: UIImage?) {
+      self.fitClip(image) { [weak self] image in
+        switch mask {
+        case .Rounded:
+          self?.rounded(image, borderWidth: borderWidth, borderColor: borderColor)
+          break
+        case .Squared:
+          self?.squared(image, cornerRadius: cornerRadius, borderWidth: borderWidth, borderColor: borderColor)
+          break
+        case .None:
+          self?.image = image
+          break
+        }
+        if animated {
+          self?.alpha = 0.0
+          UIView.animateWithDuration(0.4) { [weak self] in
+            self?.alpha = 1.0
+          }
+        }
+      }
+    }
+    
     if let url = url, let nsurl = NSURL(string: url) {
       // set the tag with the url's unique hash value
       if tag == url.hashValue { return }
@@ -304,17 +415,14 @@ extension UIImageView {
       // begin image download
       SDWebImageManager.sharedManager().downloadImageWithURL(nsurl, options: [], progress: { (received: NSInteger, actual: NSInteger) -> Void in
       }) { [weak self] (image, error, cache, finished, nsurl) -> Void in
-        block?(image: image)
-        if maskWithEllipse {
-          self?.fitClip(image) { [weak self] image in self?.rounded(image) }
-        } else {
-          self?.fitClip(image)
-        }
+        block?(image: image ?? placeholder)
+        fitClip(image ?? placeholder)
         self?.dismissActivityView()
       }
+    } else if let placeholder = placeholder {
+      fitClip(placeholder)
     } else {
-      image = placeholder
-      fitClip()
+      fitClip(image)
     }
   }
 }

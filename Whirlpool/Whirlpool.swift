@@ -218,7 +218,7 @@ public struct Whirlpool {
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
       if !model.messages.isEmpty {
-        let height: CGFloat = model.messages[indexPath.row].text?.height(frame.width - 100) ?? 0
+        let height: CGFloat = model.messages[indexPath.row].text?.height(frame.width - 128) ?? 0
         if isConsecutiveMessage(indexPath) {
           return height < 36 ? height - 1 : height + 3
         } else {
