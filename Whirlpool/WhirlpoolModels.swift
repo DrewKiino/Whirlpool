@@ -11,7 +11,11 @@ import UIKit
 import Pacific
 import Async
 
+// The model schema for Whirlpool's MVC design
+
 public struct WhirlpoolModels {
+  
+  // MARK: User
   
   public class User {
     
@@ -21,9 +25,10 @@ public struct WhirlpoolModels {
     public init(username: String?, userImageUrl: String?) {
       self.username = username
       self.userImageUrl = userImageUrl
-      
     }
   }
+  
+  // MARK: Message
   
   public class Message {
     
@@ -76,6 +81,8 @@ public struct WhirlpoolModels {
         ] as [String: AnyObject]
     }
   }
+  
+  // MARK: Message Cell
   
   public class MessageCell: UITableViewCell {
     
