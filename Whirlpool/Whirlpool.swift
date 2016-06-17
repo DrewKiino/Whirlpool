@@ -17,8 +17,10 @@ import Async
 import UIColor_Hex_Swift
 import SwiftyTimer
 
+// Whirlpool Chat Framework
 public struct Whirlpool {
   
+  // convenient config vars that affect the entire class settings
   public struct Config {
     public static var skip: Int = 0
     public static var paging: Int = 30
@@ -74,7 +76,9 @@ public struct Whirlpool {
       controller.setup()
       controller.layoutViewsBlock = { [weak self] keyboardHeight in
         self?.keyboardHeight = keyboardHeight
-        self?.layoutSubviews()
+        if self?.tableView?.contentSize.height > self?.tableView?.frame.height {
+          self?.layoutSubviews()
+        }
       }
       controller.keyboardDidShowBlock = { [weak self] in
         self?.scrollToMostRecent()
@@ -112,7 +116,7 @@ public struct Whirlpool {
         self?.inputContainer?.enableSendButton()
       }
       
-      // Setup table view
+      // setup table view
       tableView = UITableView()
       tableView?.separatorColor = .clearColor()
       tableView?.delegate = self
@@ -124,10 +128,12 @@ public struct Whirlpool {
       tableView?.registerClass(WhirlpoolModels.MessageCell.self, forCellReuseIdentifier: "MessageCell")
       addSubview(tableView!)
       
+      // setup refresh control
       refreshControl = UIRefreshControl()
       refreshControl?.addTarget(self, action: "refresh:", forControlEvents: .ValueChanged)
       tableView?.addSubview(refreshControl!)
       
+      // setup input container
       inputContainer = InputContainer()
       inputContainer?.disableSendButton()
       inputContainer?.hidden = true
@@ -149,6 +155,8 @@ public struct Whirlpool {
       addSubview(inputContainer!)
     }
     
+    // setup layout
+    
     public override func layoutSubviews() {
       super.layoutSubviews()
       
@@ -156,7 +164,13 @@ public struct Whirlpool {
       fillSuperview(left: 0, right: 0, top: 4, bottom: 0)
       
       inputContainer?.hidden = false
-      inputContainer?.anchorToEdge(.Bottom, padding: keyboardHeight, width: frame.width, height: 48)
+      inputContainer?.anchorToEdge(
+        .Bottom,
+        padding: keyboardHeight,
+        width: frame.width,
+        height: 48
+      )
+      
       tableView?.alignAndFill(align: .AboveCentered, relativeTo: inputContainer!, padding: 0)
       
       inputContainer?.layer.shadowColor = UIColor.blackColor().CGColor
@@ -214,6 +228,53 @@ public struct Whirlpool {
       }
     }
     
+    
+    private func getBubbleColor(indexPath: NSIndexPath) -> UIColor {
+      return model.messages[indexPath.row].username == model.username
+        ? UIColor(red: 0/255, green: 255/255, blue: 127/255, alpha: 0.1)
+        : UIColor(red: 0/255, green: 191/255, blue: 255/255, alpha: 0.1)
+    }
+    
+    private func updateTimestampUI(cell: WhirlpoolModels.MessageCell, indexPath: NSIndexPath) {
+      
+      cell.timestampLabel?.hidden = false
+      
+      if let messageDate: NSDate = model.messages[indexPath.row].timestamp?.toDateFromISO8601()
+        where model.messages.count > 1 && indexPath.row + 1 < model.messages.count
+      {
+        if let futureMessageDate: NSDate = model.messages[indexPath.row + 1].timestamp?.toDateFromISO8601() {
+          cell.timestampLabel?.hidden = true
+          if futureMessageDate - 1.minutes > messageDate {
+            cell.timestampLabel?.hidden = false
+            cell.timestampLabel?.text = model.messages[indexPath.row].timestamp?.toDateFromISO8601()?
+              .toSimpleString(!messageDate.isInToday() ? .ShortStyle : .NoStyle, timeStyle: .ShortStyle)
+          }
+        }
+      }
+      
+      if indexPath.row == 0 {
+        cell.timestampLabel?.hidden = false
+      }
+    }
+    
+    private func isConsecutiveMessage(indexPath: NSIndexPath) -> Bool {
+      if model.messages.count > 1 && indexPath.row > 0 {
+        return model.messages[indexPath.row].username == model.messages[indexPath.row - 1].username
+      }
+      return false
+    }
+    
+    private func isLastConsecutiveMessage(indexPath: NSIndexPath) -> Bool {
+      if model.messages.count > 1 && indexPath.row < model.messages.count - 1 {
+        return model.messages[indexPath.row].username != model.messages[indexPath.row + 1].username
+      }
+      return false
+    }
+    
+    public func refresh(sender: UIRefreshControl) {
+      controller.getMessages(model.messages.count, paging: Whirlpool.Config.paging, invertScroll: true)
+    }
+    
     // MARK: Tableview methods
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -260,53 +321,6 @@ public struct Whirlpool {
       return UITableViewCell()
     }
     
-    private func getBubbleColor(indexPath: NSIndexPath) -> UIColor {
-      return model.messages[indexPath.row].username == model.username
-        ? UIColor(red: 0/255, green: 255/255, blue: 127/255, alpha: 0.1)
-        : UIColor(red: 0/255, green: 191/255, blue: 255/255, alpha: 0.1)
-    }
-    
-    private func updateTimestampUI(cell: WhirlpoolModels.MessageCell, indexPath: NSIndexPath) {
-      
-      cell.timestampLabel?.hidden = false
-      
-      if let messageDate: NSDate = model.messages[indexPath.row].timestamp?.toDateFromISO8601()
-        where model.messages.count > 1 && indexPath.row + 1 < model.messages.count
-      {
-        if let futureMessageDate: NSDate = model.messages[indexPath.row + 1].timestamp?.toDateFromISO8601() {
-          cell.timestampLabel?.hidden = true
-          if futureMessageDate - 1.minutes > messageDate {
-            cell.timestampLabel?.hidden = false
-            cell.timestampLabel?.text = model.messages[indexPath.row].timestamp?.toDateFromISO8601()?
-              .toSimpleString(!messageDate.isInToday() ? .ShortStyle : .NoStyle, timeStyle: .ShortStyle)
-          }
-        }
-      }
-      
-      if indexPath.row == 0 {
-        cell.timestampLabel?.hidden = false
-      }
-    }
-    
-    private func isConsecutiveMessage(indexPath: NSIndexPath) -> Bool {
-      if model.messages.count > 1 && indexPath.row > 0 {
-        return model.messages[indexPath.row].username == model.messages[indexPath.row - 1].username
-      }
-      return false
-    }
-    
-    private func isLastConsecutiveMessage(indexPath: NSIndexPath) -> Bool {
-      if model.messages.count > 1 && indexPath.row < model.messages.count - 1 {
-        return model.messages[indexPath.row].username != model.messages[indexPath.row + 1].username
-      }
-      return false
-    }
-    
-    // MARK: refresh 
-    public func refresh(sender: UIRefreshControl) {
-      controller.getMessages(model.messages.count, paging: Whirlpool.Config.paging, invertScroll: true)
-    }
-    
     // MARK: Controller
     
     public class Controller: NSObject {
@@ -331,6 +345,8 @@ public struct Whirlpool {
       }
       
       private func setup() {
+        
+        // setup sockets
         
         socket = Socket(room: model.room)
         
@@ -380,6 +396,8 @@ public struct Whirlpool {
         socket?.connect()
       }
       
+      // make sure we remove observers!
+      
       deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: self)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: self)
@@ -390,6 +408,8 @@ public struct Whirlpool {
         }
         socket = nil
       }
+      
+      // MARK: keyboard observers
       
       public func keyboardDidShow(notification: NSNotification) {
         keyboardDidShowBlock?()
@@ -452,7 +472,9 @@ public struct Whirlpool {
       private var pendingMessages: [WhirlpoolModels.Message] = []
     }
     
-    public class InputContainer: BasicView, UITextFieldDelegate {
+    //
+    
+    internal class InputContainer: BasicView, UITextFieldDelegate {
       
       private var originalFrame: CGRect?
       
@@ -463,7 +485,7 @@ public struct Whirlpool {
       private var textFieldDidEndEditingBlock: (() -> Void)?
       private var sendButtonOnPressBlock: ((sender: UIButton, text: String?) -> Void)?
       
-      public override func setup() {
+      internal override func setup() {
         super.setup()
         
         inputTextField = UITextField()
@@ -483,7 +505,7 @@ public struct Whirlpool {
         addSubview(sendButton!)
       }
       
-      public override func layoutSubviews() {
+      internal override func layoutSubviews() {
         super.layoutSubviews()
         
         originalFrame = frame
@@ -492,19 +514,19 @@ public struct Whirlpool {
         inputTextField?.alignAndFillWidth(align: .ToTheLeftCentered, relativeTo: sendButton!, padding: 8, height: 24)
       }
       
-      public func sendButtonPressed(sender: UIButton) {
+      internal func sendButtonPressed(sender: UIButton) {
         if inputTextField?.text?.isEmpty == true { return }
         sendButtonOnPressBlock?(sender: sender, text: inputTextField?.text)
         inputTextField?.text = nil
       }
       
-      public func disableSendButton() {
+      internal func disableSendButton() {
         sendButton?.userInteractionEnabled = false
         sendButton?.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), forState: .Highlighted)
         sendButton?.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 0.5), forState: .Normal)
       }
       
-      public func enableSendButton() {
+      internal func enableSendButton() {
         sendButton?.userInteractionEnabled = true
         sendButton?.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), forState: .Normal)
         sendButton?.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 0.5), forState: .Highlighted)
@@ -512,16 +534,18 @@ public struct Whirlpool {
       
       // MARK: textfield methods
       
-      public func textFieldDidBeginEditing(textField: UITextField) {
+      internal func textFieldDidBeginEditing(textField: UITextField) {
         textFieldDidBeginEditingBlock?()
       }
       
-      public func textFieldDidEndEditing(textField: UITextField) {
+      internal func textFieldDidEndEditing(textField: UITextField) {
         textFieldDidEndEditingBlock?()
       }
     }
   }
 }
+
+// Convenient subclasses
 
 public class BasicView: UIView {
   
@@ -543,8 +567,7 @@ public class BasicView: UIView {
   public func setup() {}
 }
 
-
-
+// utility extensions
 
 extension NSDate {
   
