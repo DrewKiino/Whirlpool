@@ -23,7 +23,7 @@ PODS:
   - SwiftDate (3.0.8)
   - SwiftyJSON (2.3.2)
   - SwiftyTimer (1.4.0)
-  - Tide (0.2.0):
+  - Tide (1.0.5):
     - AsyncSwift
     - SDWebImage
     - Storm
@@ -33,11 +33,13 @@ DEPENDENCIES:
   - Pacific (from `/Users/drewkiino/Pacific`)
   - SwiftDate
   - SwiftyTimer
-  - Tide
+  - Tide (from `/Users/drewkiino/Tide`)
 
 EXTERNAL SOURCES:
   Pacific:
     :path: /Users/drewkiino/Pacific
+  Tide:
+    :path: /Users/drewkiino/Tide
 
 SPEC CHECKSUMS:
   Alamofire: f11d8624a05f5d39e0c99309b3e600a3ba64298a
@@ -52,8 +54,8 @@ SPEC CHECKSUMS:
   SwiftDate: 971f8b9394f664f2226b9c3ab64e801a7291c612
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   SwiftyTimer: db4458cfaf67fc71e16ad6e4637c60b86f76a649
-  Tide: be1ebf6e0687f1d75abcfb74a472a7968f47d08d
+  Tide: c8cfd98e14d16c2a40f2fb5fb899c7e3f86e0b1d
 
-PODFILE CHECKSUM: eab19b877e1509a9a3a27a7893794de77002e648
+PODFILE CHECKSUM: d985d5f8f7d19b91e8d5541ea0a4dcdc0d02f5f6
 
 COCOAPODS: 1.0.1

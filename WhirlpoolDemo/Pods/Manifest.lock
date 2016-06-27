@@ -23,11 +23,18 @@ PODS:
   - SwiftDate (3.0.8)
   - SwiftyJSON (2.3.2)
   - SwiftyTimer (1.4.0)
-  - UIColor_Hex_Swift (2.1)
-  - Whirlpool (1.0.6):
+  - Tide (1.0.5):
     - AsyncSwift
     - SDWebImage
     - Storm
+  - UIColor_Hex_Swift (2.1)
+  - Whirlpool (1.0.7):
+    - AsyncSwift
+    - Neon
+    - Pacific
+    - SwiftDate
+    - SwiftyTimer
+    - Tide
 
 DEPENDENCIES:
   - Neon
@@ -56,8 +63,9 @@ SPEC CHECKSUMS:
   SwiftDate: 971f8b9394f664f2226b9c3ab64e801a7291c612
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   SwiftyTimer: db4458cfaf67fc71e16ad6e4637c60b86f76a649
+  Tide: c8cfd98e14d16c2a40f2fb5fb899c7e3f86e0b1d
   UIColor_Hex_Swift: e91dc51f6bf252ec7bf74c8704ceedeeb7640c1c
-  Whirlpool: 351c2a7c3bd78405ec9761796d167dabdb9d12ba
+  Whirlpool: 79b8e32e76e094a033b95cdb27ca005077653f25
 
 PODFILE CHECKSUM: 5d35627844721f69b4d901f1bb356238e763b0bf
 

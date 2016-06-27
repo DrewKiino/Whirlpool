@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Whirlpool
 
 class ViewController: UIViewController {
 

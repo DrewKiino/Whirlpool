@@ -676,7 +676,7 @@ public struct Whirlpool {
           
           containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: max(userImageViewWidth + usernameLabelWidth, textViewWidth))
           
-          userImageView?.imageFromUrl(userImageUrl, placeholder: UIImage(named: "placeholder-image.png"), mask: .Rounded)
+          userImageView?.imageFromSource(userImageUrl, placeholder: UIImage(named: "placeholder-image.png"), mask: .Rounded)
         }
       }
       
