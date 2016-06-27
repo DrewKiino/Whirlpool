@@ -27,16 +27,13 @@ PODS:
     - AsyncSwift
     - SDWebImage
     - Storm
-  - UIColor_Hex_Swift (2.1)
 
 DEPENDENCIES:
   - Neon
   - Pacific (from `/Users/drewkiino/Pacific`)
-  - Storm
   - SwiftDate
   - SwiftyTimer
   - Tide
-  - UIColor_Hex_Swift
 
 EXTERNAL SOURCES:
   Pacific:
@@ -56,8 +53,7 @@ SPEC CHECKSUMS:
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   SwiftyTimer: db4458cfaf67fc71e16ad6e4637c60b86f76a649
   Tide: be1ebf6e0687f1d75abcfb74a472a7968f47d08d
-  UIColor_Hex_Swift: e91dc51f6bf252ec7bf74c8704ceedeeb7640c1c
 
-PODFILE CHECKSUM: df49c8d0bcec9c2b29abdfaa7a31aeb9bf001fa7
+PODFILE CHECKSUM: eab19b877e1509a9a3a27a7893794de77002e648
 
 COCOAPODS: 1.0.1

@@ -12,13 +12,11 @@ target 'Whirlpool' do
 # map routing libs
 # pod 'OpenInGoogleMaps', '0.1.0'
 pod 'Pacific', :path => '/Users/drewkiino/Pacific'
-pod 'Storm'
 pod 'Tide'
 
 # UI libs
 pod 'Neon'
 pod 'SwiftDate'
-pod 'UIColor_Hex_Swift'
 
 # util libs
 pod 'SwiftyTimer'

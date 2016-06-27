@@ -1,0 +1,6 @@
+framework module Whirlpool {
+  umbrella header "Whirlpool-umbrella.h"
+
+  export *
+  module * { export * }
+}
