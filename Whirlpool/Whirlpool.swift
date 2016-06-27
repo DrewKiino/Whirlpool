@@ -44,14 +44,14 @@ public struct Whirlpool {
     public convenience init(
       user: WhirlpoolModels.User?,
       room: String? = nil
-      ) {
-        self.init()
-        
-        model.username = user?.username
-        model.userImageUrl = user?.userImageUrl
-        model.room = room?.stringByReplacingOccurrencesOfString(" ", withString: "")
-        
-        setup()
+    ) {
+      self.init()
+      
+      model.username = user?.username
+      model.userImageUrl = user?.userImageUrl
+      model.room = room?.stringByReplacingOccurrencesOfString(" ", withString: "")
+      
+      setup()
     }
     
     public convenience init(

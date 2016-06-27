@@ -1,0 +1,373 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A8B65E9984D047DB7116E569 /* Pods_WhirlpoolDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6A271BA37865326ED610C7A /* Pods_WhirlpoolDemo.framework */; };
+		EE92A8551D20D2D400E60B8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE92A8541D20D2D400E60B8C /* AppDelegate.swift */; };
+		EE92A8571D20D2D400E60B8C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE92A8561D20D2D400E60B8C /* ViewController.swift */; };
+		EE92A85A1D20D2D400E60B8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE92A8581D20D2D400E60B8C /* Main.storyboard */; };
+		EE92A85C1D20D2D400E60B8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE92A85B1D20D2D400E60B8C /* Assets.xcassets */; };
+		EE92A85F1D20D2D400E60B8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE92A85D1D20D2D400E60B8C /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8D91241E911A4923E39ADDCF /* Pods-WhirlpoolDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhirlpoolDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhirlpoolDemo/Pods-WhirlpoolDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		A1E2CB16197E5FDE937B0196 /* Pods-WhirlpoolDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhirlpoolDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhirlpoolDemo/Pods-WhirlpoolDemo.release.xcconfig"; sourceTree = "<group>"; };
+		D6A271BA37865326ED610C7A /* Pods_WhirlpoolDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhirlpoolDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE92A8511D20D2D400E60B8C /* WhirlpoolDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhirlpoolDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE92A8541D20D2D400E60B8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EE92A8561D20D2D400E60B8C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EE92A8591D20D2D400E60B8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EE92A85B1D20D2D400E60B8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EE92A85E1D20D2D400E60B8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EE92A8601D20D2D400E60B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EE92A84E1D20D2D400E60B8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8B65E9984D047DB7116E569 /* Pods_WhirlpoolDemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5FF489B88F8AF223CCE64E9D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D6A271BA37865326ED610C7A /* Pods_WhirlpoolDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C671E5D9C794734DDDC2611C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8D91241E911A4923E39ADDCF /* Pods-WhirlpoolDemo.debug.xcconfig */,
+				A1E2CB16197E5FDE937B0196 /* Pods-WhirlpoolDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EE92A8481D20D2D400E60B8C = {
+			isa = PBXGroup;
+			children = (
+				EE92A8531D20D2D400E60B8C /* WhirlpoolDemo */,
+				EE92A8521D20D2D400E60B8C /* Products */,
+				C671E5D9C794734DDDC2611C /* Pods */,
+				5FF489B88F8AF223CCE64E9D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		EE92A8521D20D2D400E60B8C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE92A8511D20D2D400E60B8C /* WhirlpoolDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EE92A8531D20D2D400E60B8C /* WhirlpoolDemo */ = {
+			isa = PBXGroup;
+			children = (
+				EE92A8541D20D2D400E60B8C /* AppDelegate.swift */,
+				EE92A8561D20D2D400E60B8C /* ViewController.swift */,
+				EE92A8581D20D2D400E60B8C /* Main.storyboard */,
+				EE92A85B1D20D2D400E60B8C /* Assets.xcassets */,
+				EE92A85D1D20D2D400E60B8C /* LaunchScreen.storyboard */,
+				EE92A8601D20D2D400E60B8C /* Info.plist */,
+			);
+			path = WhirlpoolDemo;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE92A8501D20D2D400E60B8C /* WhirlpoolDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE92A8631D20D2D400E60B8C /* Build configuration list for PBXNativeTarget "WhirlpoolDemo" */;
+			buildPhases = (
+				B7EEC6D64D4676F80211235F /* [CP] Check Pods Manifest.lock */,
+				EE92A84D1D20D2D400E60B8C /* Sources */,
+				EE92A84E1D20D2D400E60B8C /* Frameworks */,
+				EE92A84F1D20D2D400E60B8C /* Resources */,
+				9018B935AFD67A135ECD8145 /* [CP] Embed Pods Frameworks */,
+				4C4E56C61C6E95031C98E8C4 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WhirlpoolDemo;
+			productName = WhirlpoolDemo;
+			productReference = EE92A8511D20D2D400E60B8C /* WhirlpoolDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE92A8491D20D2D400E60B8C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Andrew Aquino";
+				TargetAttributes = {
+					EE92A8501D20D2D400E60B8C = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = EE92A84C1D20D2D400E60B8C /* Build configuration list for PBXProject "WhirlpoolDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EE92A8481D20D2D400E60B8C;
+			productRefGroup = EE92A8521D20D2D400E60B8C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE92A8501D20D2D400E60B8C /* WhirlpoolDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EE92A84F1D20D2D400E60B8C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE92A85F1D20D2D400E60B8C /* LaunchScreen.storyboard in Resources */,
+				EE92A85C1D20D2D400E60B8C /* Assets.xcassets in Resources */,
+				EE92A85A1D20D2D400E60B8C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4C4E56C61C6E95031C98E8C4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WhirlpoolDemo/Pods-WhirlpoolDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9018B935AFD67A135ECD8145 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WhirlpoolDemo/Pods-WhirlpoolDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B7EEC6D64D4676F80211235F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE92A84D1D20D2D400E60B8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE92A8571D20D2D400E60B8C /* ViewController.swift in Sources */,
+				EE92A8551D20D2D400E60B8C /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		EE92A8581D20D2D400E60B8C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE92A8591D20D2D400E60B8C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EE92A85D1D20D2D400E60B8C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE92A85E1D20D2D400E60B8C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EE92A8611D20D2D400E60B8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EE92A8621D20D2D400E60B8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EE92A8641D20D2D400E60B8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D91241E911A4923E39ADDCF /* Pods-WhirlpoolDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = WhirlpoolDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = TotemV.WhirlpoolDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EE92A8651D20D2D400E60B8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1E2CB16197E5FDE937B0196 /* Pods-WhirlpoolDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = WhirlpoolDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = TotemV.WhirlpoolDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE92A84C1D20D2D400E60B8C /* Build configuration list for PBXProject "WhirlpoolDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE92A8611D20D2D400E60B8C /* Debug */,
+				EE92A8621D20D2D400E60B8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE92A8631D20D2D400E60B8C /* Build configuration list for PBXNativeTarget "WhirlpoolDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE92A8641D20D2D400E60B8C /* Debug */,
+				EE92A8651D20D2D400E60B8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EE92A8491D20D2D400E60B8C /* Project object */;
+}

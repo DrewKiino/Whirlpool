@@ -1,0 +1,31 @@
+
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+
+use_frameworks!
+
+#####################################
+
+target 'WhirlpoolDemo' do
+  
+# demo
+pod 'Whirlpool', :path => '/Users/drewkiino/Whirlpool'
+
+# boostrap
+pod 'Pacific', :path => '/Users/drewkiino/Pacific'
+
+# UI libs
+pod 'Neon'
+pod 'SwiftDate'
+pod 'UIColor_Hex_Swift'
+
+# util libs
+pod 'SwiftyTimer'
+
+end
+
+
+#####################################
+# unit testing
+
+#####################################
