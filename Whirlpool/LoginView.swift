@@ -35,7 +35,7 @@ public class LoginView: UIViewController, UITextFieldDelegate {
     join.setTitle("Join", forState: .Normal)
     join.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 1), forState: .Normal)
     join.setTitleColor(UIColor(red: 0, green: 122/255, blue: 1, alpha: 0.5), forState: .Highlighted)
-    join.addTarget(self, action: "joinPressed", forControlEvents: .TouchUpInside)
+    join.addTarget(self, action: #selector(self.joinPressed), forControlEvents: .TouchUpInside)
   }
   
   public func joinPressed() {
@@ -46,7 +46,7 @@ public class LoginView: UIViewController, UITextFieldDelegate {
       user:
 //        WhirlpoolModels.User(username: "Rob", userImageUrl: "http://zblogged.com/wp-content/uploads/2015/11/17.jpg"),
 //        WhirlpoolModels.User(username: "Andrew", userImageUrl: "http://totemv.com/drewkiino/img/selfie-car.jpeg"),
-        WhirlpoolModels.User(username: "Macie", userImageUrl: "https://assets.entrepreneur.com/content/16x9/822/20150406145944-dos-donts-taking-perfect-linkedin-profile-picture-selfie-mobile-camera-2.jpeg"),
+        Whirlpool.Models.User(username: "Macie", userImageUrl: "https://assets.entrepreneur.com/content/16x9/822/20150406145944-dos-donts-taking-perfect-linkedin-profile-picture-selfie-mobile-camera-2.jpeg"),
       room: input.text?.isEmpty == true ? "CoolRoom" : input.text ?? "CoolRoom"
     ))
     

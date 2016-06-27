@@ -9,13 +9,11 @@
 /* Begin PBXBuildFile section */
 		05A8679CA75F324F278E4DC8 /* Pods_Whirlpool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C4D329AFAD639BF458E9BF /* Pods_Whirlpool.framework */; };
 		1624B4CDFC5AE8A4D443AA6F /* Pods_WhirlpoolTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5F71280F4700620E5E0115 /* Pods_WhirlpoolTests.framework */; };
-		EE073A421D075E4500C31D88 /* AppExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE073A411D075E4500C31D88 /* AppExtensions.swift */; };
-		EE073A441D0772BE00C31D88 /* WhirlpoolModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE073A431D0772BE00C31D88 /* WhirlpoolModels.swift */; };
 		EE21EC671D03B1FF00DE6D00 /* Whirlpool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE21EC661D03B1FF00DE6D00 /* Whirlpool.swift */; };
+		EE356E191D20D85500788D6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE356E181D20D85500788D6C /* AppDelegate.swift */; };
 		EE5219CC1D03B14E00347396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE5219CB1D03B14E00347396 /* Assets.xcassets */; };
 		EE5219DA1D03B14E00347396 /* WhirlpoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5219D91D03B14E00347396 /* WhirlpoolTests.swift */; };
 		EE5219E51D03B14E00347396 /* WhirlpoolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5219E41D03B14E00347396 /* WhirlpoolUITests.swift */; };
-		EE69589E1D03FEC80007BD1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6958971D03FEC80007BD1C /* AppDelegate.swift */; };
 		EE82F5CD1D04855B00930F6C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE82F5CC1D04855B00930F6C /* LoginView.swift */; };
 		EECF62B81D0401A0008EE340 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EECF62B71D0401A0008EE340 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
@@ -44,9 +42,8 @@
 		6E1EC65D6905BEC08D863073 /* Pods-WhirlpoolTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhirlpoolTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhirlpoolTests/Pods-WhirlpoolTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7343E7349E88145A54900CDD /* Pods-WhirlpoolTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhirlpoolTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhirlpoolTests/Pods-WhirlpoolTests.release.xcconfig"; sourceTree = "<group>"; };
 		D8C4D329AFAD639BF458E9BF /* Pods_Whirlpool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Whirlpool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE073A411D075E4500C31D88 /* AppExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppExtensions.swift; sourceTree = "<group>"; };
-		EE073A431D0772BE00C31D88 /* WhirlpoolModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhirlpoolModels.swift; sourceTree = "<group>"; };
 		EE21EC661D03B1FF00DE6D00 /* Whirlpool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Whirlpool.swift; sourceTree = "<group>"; };
+		EE356E181D20D85500788D6C /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE5219C11D03B14E00347396 /* Whirlpool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whirlpool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE5219CB1D03B14E00347396 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE5219D01D03B14E00347396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,7 +53,6 @@
 		EE5219E01D03B14E00347396 /* WhirlpoolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhirlpoolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE5219E41D03B14E00347396 /* WhirlpoolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhirlpoolUITests.swift; sourceTree = "<group>"; };
 		EE5219E61D03B14E00347396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EE6958971D03FEC80007BD1C /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Config/AppDelegate.swift; sourceTree = "<group>"; };
 		EE82F5CC1D04855B00930F6C /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		EECF62B71D0401A0008EE340 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,25 +93,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		EE21EC641D03B1E400DE6D00 /* Assets */ = {
+		EE356E171D20D65800788D6C /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				EE21EC661D03B1FF00DE6D00 /* Whirlpool.swift */,
-				EE073A431D0772BE00C31D88 /* WhirlpoolModels.swift */,
 			);
-			name = Assets;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		EE5219B81D03B14E00347396 = {
 			isa = PBXGroup;
 			children = (
-				EECF62B71D0401A0008EE340 /* Default-568h@2x.png */,
+				C0934FE503EF1F7E71DE2DC4 /* Frameworks */,
+				FF214D8514AAC1ECBB6DACCA /* Pods */,
+				EE5219C21D03B14E00347396 /* Products */,
 				EE5219C31D03B14E00347396 /* Whirlpool */,
 				EE5219D81D03B14E00347396 /* WhirlpoolTests */,
 				EE5219E31D03B14E00347396 /* WhirlpoolUITests */,
-				EE5219C21D03B14E00347396 /* Products */,
-				FF214D8514AAC1ECBB6DACCA /* Pods */,
-				C0934FE503EF1F7E71DE2DC4 /* Frameworks */,
+				EECF62B71D0401A0008EE340 /* Default-568h@2x.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,11 +127,11 @@
 		EE5219C31D03B14E00347396 /* Whirlpool */ = {
 			isa = PBXGroup;
 			children = (
-				EE6958941D03FEC00007BD1C /* Config */,
-				EE21EC641D03B1E400DE6D00 /* Assets */,
+				EE356E171D20D65800788D6C /* Source */,
 				EE5219CB1D03B14E00347396 /* Assets.xcassets */,
 				EE5219D01D03B14E00347396 /* Info.plist */,
 				EE82F5CC1D04855B00930F6C /* LoginView.swift */,
+				EE356E181D20D85500788D6C /* AppDelegate.swift */,
 			);
 			path = Whirlpool;
 			sourceTree = "<group>";
@@ -144,8 +139,8 @@
 		EE5219D81D03B14E00347396 /* WhirlpoolTests */ = {
 			isa = PBXGroup;
 			children = (
-				EE5219D91D03B14E00347396 /* WhirlpoolTests.swift */,
 				EE5219DB1D03B14E00347396 /* Info.plist */,
+				EE5219D91D03B14E00347396 /* WhirlpoolTests.swift */,
 			);
 			path = WhirlpoolTests;
 			sourceTree = "<group>";
@@ -153,19 +148,10 @@
 		EE5219E31D03B14E00347396 /* WhirlpoolUITests */ = {
 			isa = PBXGroup;
 			children = (
-				EE5219E41D03B14E00347396 /* WhirlpoolUITests.swift */,
 				EE5219E61D03B14E00347396 /* Info.plist */,
+				EE5219E41D03B14E00347396 /* WhirlpoolUITests.swift */,
 			);
 			path = WhirlpoolUITests;
-			sourceTree = "<group>";
-		};
-		EE6958941D03FEC00007BD1C /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				EE6958971D03FEC80007BD1C /* AppDelegate.swift */,
-				EE073A411D075E4500C31D88 /* AppExtensions.swift */,
-			);
-			name = Config;
 			sourceTree = "<group>";
 		};
 		FF214D8514AAC1ECBB6DACCA /* Pods */ = {
@@ -408,9 +394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE073A421D075E4500C31D88 /* AppExtensions.swift in Sources */,
-				EE073A441D0772BE00C31D88 /* WhirlpoolModels.swift in Sources */,
-				EE69589E1D03FEC80007BD1C /* AppDelegate.swift in Sources */,
+				EE356E191D20D85500788D6C /* AppDelegate.swift in Sources */,
 				EE82F5CD1D04855B00930F6C /* LoginView.swift in Sources */,
 				EE21EC671D03B1FF00DE6D00 /* Whirlpool.swift in Sources */,
 			);

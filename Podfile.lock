@@ -3,7 +3,7 @@ PODS:
   - AsyncSwift (1.7.2)
   - Atlantis (0.1.1)
   - Neon (0.2.0)
-  - Pacific (0.1.1):
+  - Pacific (0.1.6):
     - Alamofire (= 3.2.1)
     - AsyncSwift
     - Atlantis
@@ -15,7 +15,7 @@ PODS:
   - SDWebImage (3.8.1):
     - SDWebImage/Core (= 3.8.1)
   - SDWebImage/Core (3.8.1)
-  - Socket.IO-Client-Swift (6.1.2)
+  - Socket.IO-Client-Swift (6.1.4)
   - Storm (0.0.7):
     - AsyncSwift
     - Atlantis
@@ -31,22 +31,26 @@ PODS:
 
 DEPENDENCIES:
   - Neon
-  - Pacific
+  - Pacific (from `/Users/drewkiino/Pacific`)
   - Storm
   - SwiftDate
   - SwiftyTimer
   - Tide
   - UIColor_Hex_Swift
 
+EXTERNAL SOURCES:
+  Pacific:
+    :path: /Users/drewkiino/Pacific
+
 SPEC CHECKSUMS:
   Alamofire: f11d8624a05f5d39e0c99309b3e600a3ba64298a
   AsyncSwift: 46a78bceb11f0e5bb52747f740d9692ec78d2d7c
   Atlantis: 33d4c4c436b6af3b640c2c6b2317c72d1fb41f00
   Neon: c7de6b6186c31870a0cacab6e018d0641bd12dca
-  Pacific: 9b907c8de73723c06e14919f6810687c830d6aca
+  Pacific: 517eaaa0220d6e2781c00868655b5e86512fe43e
   Pantry: 433931c8f545dd3426ca7d09a4edd5afa89c6e01
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
-  Socket.IO-Client-Swift: 60a60e8bfd7b16bc57c90ff6329e9f536b5eacdd
+  Socket.IO-Client-Swift: 79dfbbe170d7816c84e2d3cc2baa3d227549e067
   Storm: 2db726b2fbb967bc6f4a4bca76c7dfcf38cb911f
   SwiftDate: 971f8b9394f664f2226b9c3ab64e801a7291c612
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
@@ -54,6 +58,6 @@ SPEC CHECKSUMS:
   Tide: be1ebf6e0687f1d75abcfb74a472a7968f47d08d
   UIColor_Hex_Swift: e91dc51f6bf252ec7bf74c8704ceedeeb7640c1c
 
-PODFILE CHECKSUM: a10478f90a211cc40f63150ae7067f8f80853674
+PODFILE CHECKSUM: df49c8d0bcec9c2b29abdfaa7a31aeb9bf001fa7
 
 COCOAPODS: 1.0.1

@@ -42,7 +42,7 @@ public struct Whirlpool {
     private var inputContainer: InputContainer?
     
     public convenience init(
-      user: WhirlpoolModels.User?,
+      user: Whirlpool.Models.User?,
       room: String? = nil
     ) {
       self.init()
@@ -125,7 +125,7 @@ public struct Whirlpool {
       tableView?.rowHeight = UITableViewAutomaticDimension
       tableView?.layer.masksToBounds = false
       tableView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "dismissKeyboard"))
-      tableView?.registerClass(WhirlpoolModels.MessageCell.self, forCellReuseIdentifier: "MessageCell")
+      tableView?.registerClass(Whirlpool.Models.MessageCell.self, forCellReuseIdentifier: "MessageCell")
       addSubview(tableView!)
       
       // setup refresh control
@@ -143,7 +143,7 @@ public struct Whirlpool {
       inputContainer?.textFieldDidEndEditingBlock = { [weak self] in
       }
       inputContainer?.sendButtonOnPressBlock = { [weak self] button, text in
-        self?.controller.sendMessage(WhirlpoolModels.Message(
+        self?.controller.sendMessage(Whirlpool.Models.Message(
           text: text,
           username: self?.model.username,
           userImageUrl: self?.model.userImageUrl,
@@ -186,7 +186,7 @@ public struct Whirlpool {
     
     // MARK: class methods
     
-    public func append(message: WhirlpoolModels.Message) -> Self {
+    public func append(message: Whirlpool.Models.Message) -> Self {
       model.messages.insert(message, atIndex: 0)
       return self
     }
@@ -235,7 +235,7 @@ public struct Whirlpool {
         : UIColor(red: 0/255, green: 191/255, blue: 255/255, alpha: 0.1)
     }
     
-    private func updateTimestampUI(cell: WhirlpoolModels.MessageCell, indexPath: NSIndexPath) {
+    private func updateTimestampUI(cell: Whirlpool.Models.MessageCell, indexPath: NSIndexPath) {
       
       cell.timestampLabel?.hidden = false
       
@@ -295,7 +295,7 @@ public struct Whirlpool {
     }
     
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-      if let cell = tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as? WhirlpoolModels.MessageCell
+      if let cell = tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as? Whirlpool.Models.MessageCell
         where !model.messages.isEmpty
       {
         
@@ -356,7 +356,7 @@ public struct Whirlpool {
           {
             return
           }
-          let message = WhirlpoolModels.Message(
+          let message = Whirlpool.Models.Message(
             text: json["text"].string,
             username: json["username"].string,
             userImageUrl: json["userImageUrl"].string,
@@ -425,7 +425,7 @@ public struct Whirlpool {
         layoutViewsBlock?(keyboardHeight: 0)
       }
       
-      public func sendMessage(message: WhirlpoolModels.Message) {
+      public func sendMessage(message: Whirlpool.Models.Message) {
         if socket?.isConnected() == false {
           model.pendingMessages.append(message)
         } else {
@@ -440,7 +440,7 @@ public struct Whirlpool {
         App.GET("/chat/getMessages?room=\(room)&skip=\(skip)&paging=\(paging)") { [weak self] json, error in
           if let array = json?.array {
             array.forEach { [weak self] json in
-              let message = WhirlpoolModels.Message(
+              let message = Whirlpool.Models.Message(
                 text: json["text"].string,
                 username: json["username"].string,
                 userImageUrl: json["userImageUrl"].string,
@@ -460,7 +460,7 @@ public struct Whirlpool {
     
     public class Model {
       
-      public var users: [WhirlpoolModels.User] = []
+      public var users: [Whirlpool.Models.User] = []
       
       private var username: String?
       private var userImageUrl: String?
@@ -468,8 +468,8 @@ public struct Whirlpool {
       private var room: String?
       private var session_id: String?
       
-      private var messages: [WhirlpoolModels.Message] = []
-      private var pendingMessages: [WhirlpoolModels.Message] = []
+      private var messages: [Whirlpool.Models.Message] = []
+      private var pendingMessages: [Whirlpool.Models.Message] = []
     }
     
     //
@@ -543,28 +543,186 @@ public struct Whirlpool {
       }
     }
   }
-}
-
-// Convenient subclasses
-
-public class BasicView: UIView {
   
-  public init() {
-    super.init(frame: CGRectZero)
-    setup()
+  // The model schema for Whirlpool's MVC design
+  
+  public struct Models {
+    
+    // MARK: User
+    
+    public class User {
+      
+      public var username: String?
+      public var userImageUrl: String?
+      
+      public init(username: String?, userImageUrl: String?) {
+        self.username = username
+        self.userImageUrl = userImageUrl
+      }
+    }
+    
+    // MARK: Message
+    
+    public class Message {
+      
+      public var session_id: String?
+      
+      public var message_id: String?
+      public var text: String?
+      public var username: String?
+      public var userImageUrl: String?
+      public var timestamp: String?
+      public var room: String?
+      
+      public var pending: Bool = false
+      public var hidden: Bool = false
+      
+      public init(
+        text: String?,
+        username: String?,
+        userImageUrl: String?,
+        timestamp: String? = nil,
+        message_id: String? = nil,
+        session_id: String? = nil,
+        room: String? = nil
+        ) {
+        self.text = text
+        self.userImageUrl = userImageUrl
+        self.username = username
+        self.timestamp = timestamp ?? NSDate().toString(.ISO8601Format(.Full))
+        self.message_id = message_id ?? abs(NSDate().hashValue).description
+        self.session_id = session_id ?? UIDevice.currentDevice().identifierForVendor?.UUIDString ?? nil
+        self.room = room
+      }
+      
+      public func toJSON() -> [String: AnyObject] {
+        let message_id: String = self.message_id ?? ""
+        let text: String = self.text ?? ""
+        let username: String = self.username ?? ""
+        let userImageUrl: String = self.userImageUrl ?? ""
+        let timestamp: String = self.timestamp ?? NSDate().toString(.ISO8601Format(.Full)) ?? ""
+        let session_id: String = self.session_id ?? ""
+        let room: String = self.room ?? ""
+        return [
+          "message_id": message_id,
+          "text": text,
+          "username": username,
+          "userImageUrl": userImageUrl,
+          "timestamp": timestamp,
+          "session_id": session_id,
+          "room": room
+          ] as [String: AnyObject]
+      }
+    }
+    
+    // MARK: Message Cell
+    
+    public class MessageCell: UITableViewCell {
+      
+      public var containerView: UIView?
+      
+      public var usernameLabel: UILabel?
+      public var userImageView: UIImageView?
+      public var timestampLabel: UILabel?
+      
+      public var userImageUrl: String?
+      
+      public var isConsecutiveMessage: Bool = false
+      public var isLastConsecutiveMessage: Bool = false
+      public var isLastMessage: Bool = false
+      
+      public var message: Whirlpool.Models.Message?
+      
+      private override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setup()
+      }
+      
+      public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+      }
+      
+      public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        timestampLabel?.anchorInCorner(.TopRight, xPad: 8, yPad: 8, width: 48, height: 48)
+        timestampLabel?.frame.origin.y -= 17
+        
+        containerView?.fillSuperview(left: 8, right: 8, top: 4, bottom: 4)
+        
+        textLabel?.frame = CGRectMake(16, 8 + (isConsecutiveMessage ? 0 : 32), frame.width - 76, frame.height)
+        textLabel?.sizeToFit()
+        
+        usernameLabel?.hidden = isConsecutiveMessage
+        userImageView?.hidden = isConsecutiveMessage
+        
+        if isConsecutiveMessage {
+          
+          let textViewWidth: CGFloat = max((textLabel?.text?.width(frame.height - 36, font: Whirlpool.Config.font) ?? 0) + 16, 20)
+          let threshold: Bool = textViewWidth > (timestampLabel?.frame.origin.x ?? 0)
+          let thresholdWidth: CGFloat = (threshold ? (containerView?.frame.width ?? 0) - (timestampLabel?.frame.width ?? 0) : textViewWidth)
+          
+          containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: min(textViewWidth, thresholdWidth))
+          
+        } else {
+          
+          userImageView?.anchorInCorner(.TopLeft, xPad: 8, yPad: 8, width: 24, height: 24)
+          userImageView?.backgroundColor = .clearColor()
+          
+          usernameLabel?.alignAndFillWidth(align: .ToTheRightCentered, relativeTo: userImageView!, padding: 4, height: 24)
+          
+          let textViewWidth: CGFloat = max(min(textLabel?.frame.width ?? 0, (textLabel?.text?.width(frame.height - 36, font: Whirlpool.Config.font) ?? 0)) + 16, 20)
+          let userImageViewWidth: CGFloat = (userImageView?.frame.width ?? 0) + 24
+          let usernameLabelWidth: CGFloat = (usernameLabel?.text?.width(24, font: Whirlpool.Config.font) ?? 0)
+          
+          containerView?.anchorAndFillEdge(.Left, xPad: 8, yPad: 4, otherSize: max(userImageViewWidth + usernameLabelWidth, textViewWidth))
+          
+          userImageView?.imageFromUrl(userImageUrl, placeholder: UIImage(named: "placeholder-image.png"), mask: .Rounded)
+        }
+      }
+      
+      private func setup() {
+        
+        backgroundColor = .clearColor()
+        
+        containerView = UIView()
+        containerView?.backgroundColor = .whiteColor()
+        addSubview(containerView!)
+        
+        containerView?.layer.cornerRadius = 12.0
+        containerView?.layer.masksToBounds = true
+        
+        // MARK: setup username label
+        usernameLabel = UILabel()
+        usernameLabel?.font = UIFont.boldSystemFontOfSize(12)
+        usernameLabel?.textAlignment = .Left
+        containerView?.addSubview(usernameLabel!)
+        
+        // MARK: setup timestamp label
+        timestampLabel = UILabel()
+        timestampLabel?.font = UIFont.systemFontOfSize(10)
+        timestampLabel?.textColor = .lightGrayColor()
+        timestampLabel?.textAlignment = .Right
+        timestampLabel?.numberOfLines = 2
+        addSubview(timestampLabel!)
+        //      containerView?.addSubview(timestampLabel!)
+        
+        // MARK: setup user image view
+        userImageView = UIImageView()
+        containerView?.addSubview(userImageView!)
+        
+        // MARK: setup text label
+        textLabel?.numberOfLines = 0
+        textLabel?.font = Whirlpool.Config.font
+        addSubview(textLabel!)
+        
+        layer.masksToBounds = false
+        
+        sendSubviewToBack(containerView!)
+      }
+    }
   }
-  
-  public override init(frame: CGRect) {
-    super.init(frame: frame)
-    setup()
-  }
-  
-  public required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  public func setup() {}
 }
 
 // utility extensions
